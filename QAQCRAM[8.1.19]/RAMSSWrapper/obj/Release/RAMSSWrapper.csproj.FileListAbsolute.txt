@@ -1,0 +1,11 @@
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Release\RAMSSWrapper.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Release\RAMSSWrapper.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Release\Newtonsoft.Json.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Release\Newtonsoft.Json.xml
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\Interop.RAMDATAACCESSLib.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.csproj.ResolveComReference.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.csproj.CoreCompileInputs.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.csproj.CopyComplete
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Release\RAMSSWrapper.csprojAssemblyReference.cache

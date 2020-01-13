@@ -9,6 +9,8 @@ using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Reflection;
 using RAMSSWrapper;
+using System.Diagnostics;
+using Newtonsoft.Json;
 #endregion
 
 namespace QAQCRAM
@@ -187,28 +189,42 @@ namespace QAQCRAM
             }
             #endregion
 
-            #region Collect RAM Beams and Columns
+            //In EXE FILEPATH
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string exefilepath = assemblyFolder + @"\RAMSSTransfer.exe";
 
-            //Initialize method
-            CollectInfo RAMCollection = new CollectInfo(FilenameUser);          
+            string jsonfilepath = assemblyFolder + @"\MetaData.json";
 
-            //Get the beams
-            List<BeamDataModel>RAMStlBeams = RAMCollection.GetBeams();
+            #region Collect RAM Data from external process
 
-            //Get the joists
-            List<BeamDataModel> RAMJoists = RAMCollection.GetJoists();
+            Process newprocess = new Process();
 
-            //Concat Stl beams and Joists
+            //Lookup exe -> This needs to be process
+            newprocess.StartInfo.FileName = exefilepath;
+
+            //Set Filename
+            newprocess.StartInfo.Arguments = FilenameUser;
+
+            bool trytest = newprocess.Start();
+            newprocess.WaitForExit();
+
+            Payload payloadoutput = JsonConvert.DeserializeObject<Payload>(File.ReadAllText(jsonfilepath));
+
+            ////Get the joists
+            List<BeamDataModel> RAMJoists = payloadoutput._RAMJoists;
+
+            ////Get the beams
+            List<BeamDataModel> RAMStlBeams = payloadoutput._RAMStlBeams;
+
+            ////Concat Stl beams and Joists
             List<BeamDataModel> RAMBeams = RAMStlBeams.Concat(RAMJoists).ToList();
 
-            //Get the Columns
-            List <ColumnDataModel> RAMColumns = RAMCollection.GetColumns();
+            ////Get the Columns
+            List<ColumnDataModel> RAMColumns = payloadoutput._RAMColumns;
 
-            //Get the Columns
-            List<VBDataModel> RAMVBs = RAMCollection.GetVB();
+            ////Get the Columns
+            List<VBDataModel> RAMVBs = payloadoutput._RAMVBs;
 
-            //Close the database
-            RAMCollection.CloseModel();
             #endregion
 
             #region Rotate the RAM Beam and Columns
@@ -635,7 +651,7 @@ namespace QAQCRAM
 
             #region Create New 3D View
             //View Name
-            string ViewName = "Norman Has Control Now - RAM QAQC";
+            string ViewName = "RAM SS QAQC 3D";
 
             //Initiate 3D view check
             bool exist = false;
@@ -727,6 +743,8 @@ namespace QAQCRAM
 
                     //Rename View
                     view3D.Name = ViewName;
+
+                    view3D.ViewTemplateId = new ElementId(-1);
 
                     //Initialize list
                     List<ElementId> category = new List<ElementId>();

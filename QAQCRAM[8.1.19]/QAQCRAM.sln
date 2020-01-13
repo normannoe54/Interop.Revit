@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAQCRAM", "QAQC\QAQCRAM.csproj", "{FEF7BBC2-21C2-40D1-88C3-1DEFF163343F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4} = {F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAMSSWrapper", "RAMSSWrapper\RAMSSWrapper.csproj", "{E20F0160-97F0-4FDC-9660-A4BF055337AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAMSSTransfer", "RAMSSTransfer\RAMSSTransfer.csproj", "{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +46,18 @@ Global
 		{E20F0160-97F0-4FDC-9660-A4BF055337AF}.Release|x64.Build.0 = Release|Any CPU
 		{E20F0160-97F0-4FDC-9660-A4BF055337AF}.Release|x86.ActiveCfg = Release|Any CPU
 		{E20F0160-97F0-4FDC-9660-A4BF055337AF}.Release|x86.Build.0 = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|x64.Build.0 = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Debug|x86.Build.0 = Debug|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|x64.ActiveCfg = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|x64.Build.0 = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|x86.ActiveCfg = Release|Any CPU
+		{F139A331-0EB2-4CDE-8315-DE94EFB3B9B4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

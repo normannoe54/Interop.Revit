@@ -176,3 +176,4 @@ C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Auto
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPI.xml
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPIUI.xml
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAddInUtility.xml
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csprojAssemblyReference.cache

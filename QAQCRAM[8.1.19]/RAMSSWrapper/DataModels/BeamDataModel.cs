@@ -51,6 +51,22 @@ namespace RAMSSWrapper
         /// Studs value
         /// </summary>
         public string ID { get; set; }
+
+        /// <summary>
+        /// Axial Load
+        /// </summary>
+        public double P { get; set; }
+
+        /// <summary>
+        /// Shear Value
+        /// </summary>
+        public double V { get; set; }
+
+        /// <summary>
+        /// Major Moment
+        /// </summary>
+        public double M3 { get; set; }
+
         #endregion
 
         #region constructor

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QAQCRAM
+namespace RAMSSWrapper
 {
     /// <summary>
     /// Parser class for data manipulation

@@ -34,8 +34,6 @@ namespace QAQCRAM
             m_HandlerRun = HandlerRun;
             m_EventSelection = EventSelection;
             m_HandlerSelection = HandlerSelection;
-            RAMDATAACCESSLib.RamDataAccess1 RAM = new RAMDATAACCESSLib.RamDataAccess1();
-
 
         }
 

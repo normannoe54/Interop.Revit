@@ -7,27 +7,52 @@ using System.Threading.Tasks;
 using RAMDATAACCESSLib;
 #endregion
 
-namespace QAQCRAM
+namespace RAMSSWrapper
 {
     public class CollectInfo
     {
         #region Internal RAM Functions
+        private readonly IModel Imodel;
+        private readonly IDBIO1 RAMIDBIO1;
         //Variables imported and exported during the process
-        internal SCoordinate StartPointC { get; set; }
-        internal SCoordinate EndPointC { get; set; }
-        internal SCoordinate StartPointB { get; set; }
-        internal SCoordinate EndPointB { get; set; }
-        internal int Size { get; set; }
-        internal object NumberofStuds { get; set; }
+        //internal SCoordinate StartPointC { get; set; }
+        //internal SCoordinate EndPointC { get; set; }
+        //internal SCoordinate StartPointB { get; set; }
+        //internal SCoordinate EndPointB { get; set; }
+        //internal int Size { get; set; }
+        //internal object NumberofStuds { get; set; }
         #endregion
 
+        public CollectInfo(string FileName)
+        {
+            //Create instance of RAM DATA ACCESS
+            RamDataAccess1 RAM = new RamDataAccess1();
+
+            //Initiate IDBIO1 Interface
+            RAMIDBIO1 = RAM.GetDispInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+
+            //Load Model Data from a file name (OpenFile)
+            double LOADDB = RAMIDBIO1.LoadDataBase2(FileName, "DA");
+
+            //Load the model data
+            Imodel = RAMIDBIO1.GetDispInterfacePointerByEnum(EINTERFACES.IModel_INT);
+        }
+
         #region Public Methods
+
+
+        public void CloseModel()
+        {
+            //Close the database
+            RAMIDBIO1.CloseDatabase();
+        }
+
         /// <summary>
         /// Collect Beam Elements from RAM Model
         /// </summary>
         /// <param name="Imodel"></param>
         /// <returns></returns>
-        public List<BeamDataModel> GetBeams(IModel Imodel)
+        public List<BeamDataModel> GetBeams()
         {
             //Initialize Beam Model
             List<BeamDataModel> RAMBeams = new List<BeamDataModel>();
@@ -137,7 +162,7 @@ namespace QAQCRAM
         /// </summary>
         /// <param name="Imodel"></param>
         /// <returns></returns>
-        public List<ColumnDataModel> GetColumns(IModel Imodel)
+        public List<ColumnDataModel> GetColumns()
         {
             //Initialize Beam Model
             List<ColumnDataModel> RAMColumns = new List<ColumnDataModel>();
@@ -364,7 +389,7 @@ namespace QAQCRAM
         /// </summary>
         /// <param name="Imodel"></param>
         /// <returns></returns>
-        public List<BeamDataModel> GetJoists(IModel Imodel)
+        public List<BeamDataModel> GetJoists()
         {
             //Initialize Beam Model
             List<BeamDataModel> RAMBeams = new List<BeamDataModel>();
@@ -429,7 +454,7 @@ namespace QAQCRAM
         /// </summary>
         /// <param name="Imodel"></param>
         /// <returns></returns>
-        public List<VBDataModel> GetVB(IModel Imodel)
+        public List<VBDataModel> GetVB()
         {
             //Initialize Beam Model
             List<VBDataModel> RAMVBs = new List<VBDataModel>();

@@ -6,12 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 #endregion
 
-namespace QAQCRAM
+namespace RAMSSWrapper
 {
-    /// <summary>
-    /// Define Column Data
-    /// </summary>
-    public class ColumnDataModel
+    public class BeamDataModel
     {
         #region public methods
 
@@ -36,10 +33,24 @@ namespace QAQCRAM
         public string name { get; set; }
 
         /// <summary>
-        /// Rotation value
+        /// Camber value
         /// </summary>
-        public double rotation { get; set; }
+        public string camber { get; set; }
 
+        /// <summary>
+        /// Studs value
+        /// </summary>
+        public string studs { get; set; }
+
+        /// <summary>
+        /// Studs value
+        /// </summary>
+        public string story { get; set; }
+
+        /// <summary>
+        /// Studs value
+        /// </summary>
+        public string ID { get; set; }
         #endregion
 
         #region constructor
@@ -47,11 +58,11 @@ namespace QAQCRAM
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ColumnDataModel()
+        public BeamDataModel()
         {
         }
 
         #endregion
-
     }
 }
+

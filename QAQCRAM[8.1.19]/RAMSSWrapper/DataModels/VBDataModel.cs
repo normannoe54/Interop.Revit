@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 #endregion
 
-namespace QAQCRAM
+namespace RAMSSWrapper
 {
     public class VBDataModel
     {

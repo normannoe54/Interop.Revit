@@ -91,3 +91,31 @@ E:\WORK\Selfmade Tools\Buttons\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csproj.Cor
 E:\WORK\Selfmade Tools\Buttons\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csproj.CopyComplete
 E:\WORK\Selfmade Tools\Buttons\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.dll
 E:\WORK\Selfmade Tools\Buttons\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csprojAssemblyReference.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.Properties.Resources.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.QAQCEdit.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.QAQCForm.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csproj.GenerateResource.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csproj.CoreCompileInputs.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\QAQCRAM.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\QAQCRAM.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\AdWindows.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RAMSSWrapper.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RAMSSWrapper.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\cs-CZ\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\de-DE\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\en-GB\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\en-US\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\es-ES\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\fr-FR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\it-IT\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\ja-JP\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\ko-KR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\pl-PL\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\pt-BR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\ru-RU\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\zh-CN\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\zh-TW\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csproj.CopyComplete
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.pdb

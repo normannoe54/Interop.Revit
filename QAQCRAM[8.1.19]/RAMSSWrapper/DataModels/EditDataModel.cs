@@ -1,5 +1,5 @@
 ﻿
-namespace QAQCRAM
+namespace RAMSSWrapper
 {
     public class EditDataModel
     {

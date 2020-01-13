@@ -1,0 +1,6 @@
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Debug\RAMSSWrapper.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\bin\Debug\RAMSSWrapper.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Debug\RAMSSWrapper.csprojAssemblyReference.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Debug\RAMSSWrapper.csproj.CoreCompileInputs.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Debug\RAMSSWrapper.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\RAMSSWrapper\obj\Debug\RAMSSWrapper.pdb

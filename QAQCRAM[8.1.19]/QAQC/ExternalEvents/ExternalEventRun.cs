@@ -8,7 +8,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Reflection;
-using RAMDATAACCESSLib;
+using RAMSSWrapper;
 #endregion
 
 namespace QAQCRAM
@@ -16,17 +16,7 @@ namespace QAQCRAM
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
     public class ExternalEventRun : IExternalEventHandler
-    {
-        #region Internal RAM Functions
-        //Variables imported and exported during the process
-        internal SCoordinate StartPointC { get; set; }
-        internal SCoordinate EndPointC { get; set; }
-        internal SCoordinate StartPointB { get; set; }
-        internal SCoordinate EndPointB { get; set; }
-        internal int Size { get; set; }
-        internal object NumberofStuds { get; set; }
-        #endregion
-
+    {       
         /// <summary>
         /// Initialize form
         /// </summary>
@@ -38,8 +28,6 @@ namespace QAQCRAM
         /// <param name="uiapp"></param>
         public void Execute(UIApplication uiapp)
         {
-            //Create instance of RAM DATA ACCESS
-            RamDataAccess1 RAM1 = new RamDataAccess1();
 
             //Define Document
             UIDocument uidoc = uiapp.ActiveUIDocument;
@@ -200,38 +188,27 @@ namespace QAQCRAM
             #endregion
 
             #region Collect RAM Beams and Columns
+
             //Initialize method
-            CollectInfo RAMCollection = new CollectInfo();
-
-            //Create instance of RAM DATA ACCESS
-            RamDataAccess1 RAM = new RamDataAccess1();
-
-            //Initiate IDBIO1 Interface
-            IDBIO1 RAMIDBIO1 = RAM.GetDispInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-
-            //Load Model Data from a file name (OpenFile)
-            double LOADDB = RAMIDBIO1.LoadDataBase2(FilenameUser, "DA");
-
-            //Load the model data
-            IModel Imodel = RAMIDBIO1.GetDispInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            CollectInfo RAMCollection = new CollectInfo(FilenameUser);          
 
             //Get the beams
-            List<BeamDataModel>RAMStlBeams = RAMCollection.GetBeams(Imodel);
+            List<BeamDataModel>RAMStlBeams = RAMCollection.GetBeams();
 
             //Get the joists
-            List<BeamDataModel>RAMJoists = RAMCollection.GetJoists(Imodel);
+            List<BeamDataModel> RAMJoists = RAMCollection.GetJoists();
 
             //Concat Stl beams and Joists
             List<BeamDataModel> RAMBeams = RAMStlBeams.Concat(RAMJoists).ToList();
 
             //Get the Columns
-            List <ColumnDataModel> RAMColumns = RAMCollection.GetColumns(Imodel);
+            List <ColumnDataModel> RAMColumns = RAMCollection.GetColumns();
 
             //Get the Columns
-            List<VBDataModel> RAMVBs = RAMCollection.GetVB(Imodel);
+            List<VBDataModel> RAMVBs = RAMCollection.GetVB();
 
             //Close the database
-            RAMIDBIO1.CloseDatabase();
+            RAMCollection.CloseModel();
             #endregion
 
             #region Rotate the RAM Beam and Columns

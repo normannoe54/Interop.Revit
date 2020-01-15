@@ -206,8 +206,37 @@ namespace QAQCRAM
             //Lookup exe -> This needs to be process
             newprocess.StartInfo.FileName = exefilepath;
 
+            string beamcheck = "false";
+            string joistcheck = "false";
+            string columncheck = "false";
+            string vbcheck = "false";
+
+            if (qaqcform.BeamToggle.Checked)
+            {
+                beamcheck = "true";
+            }
+
+            if (qaqcform.JoistToggle.Checked)
+            {
+                joistcheck = "true";
+            }
+
+            if (qaqcform.ColumnToggle.Checked)
+            {
+                columncheck = "true";
+            }
+
+            if (qaqcform.VBToggle.Checked)
+            {
+                vbcheck = "true";
+            }
+
+            string[] arguments = { inputfilename, beamcheck, joistcheck, columncheck, vbcheck };
+
+            string argumentsfinal = String.Join(" ", arguments);
+
             //Set Filename
-            newprocess.StartInfo.Arguments = inputfilename;
+            newprocess.StartInfo.Arguments = argumentsfinal;
 
             bool trytest = newprocess.Start();
             newprocess.WaitForExit();

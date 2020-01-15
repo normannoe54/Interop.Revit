@@ -6,7 +6,7 @@
     <Assembly>QAQCRAM.dll</Assembly>
     <FullClassName>QAQCRAM.Main</FullClassName>
     <ClientId>44ebe874-a2c4-42b8-afe4-71a2539339a4</ClientId>
-    <VendorId>com.gmail@normnoe54</VendorId>
-    <VendorDescription>Norman Noe Applications</VendorDescription>
+    <VendorId>com.thorntontomasetti@nnoe</VendorId>
+    <VendorDescription>For Testing Purposes</VendorDescription>
   </AddIn>
 </RevitAddIns>

@@ -153,6 +153,12 @@ namespace QAQCRAM
                 }
             }
 
+            if (!BeamToggle.Checked && !JoistToggle.Checked && !ColumnToggle.Checked && !VBToggle.Checked)
+            {
+                Message.Display("Surely you are interested in checking something...", WindowType.Error);
+                return;
+            }
+
             //If there is no error found
             if (!found)
             {

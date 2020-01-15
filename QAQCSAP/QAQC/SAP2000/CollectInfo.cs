@@ -50,6 +50,13 @@ namespace QAQCSAP
             cSapModel SapModel;
             SapModel = SapObject.SapModel;
 
+            eUnits units = SapModel.GetDatabaseUnits();
+            double factor = 1;
+            if (units == eUnits.kip_in_F || units == eUnits.lb_in_F)
+            {
+                factor = 12;
+            }
+
             //open an existing file
             ret = SapModel.File.OpenFile(Filename);
 
@@ -104,9 +111,9 @@ namespace QAQCSAP
                 //Create beammodels
                 var SAPBeam = new BeamDataModel
                 {
-                    x = (x1 + x2) / (2 * 12),
-                    y = (y1 + y2) / (2 * 12),
-                    z = (z1 + z2) / (2 * 12),
+                    x = (x1 + x2) / (2 * factor),
+                    y = (y1 + y2) / (2 * factor),
+                    z = (z1 + z2) / (2 * factor),
                     name = PropName,
                     ID = elementName,
                 };

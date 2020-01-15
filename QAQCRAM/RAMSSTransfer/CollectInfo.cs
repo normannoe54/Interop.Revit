@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using RAMDATAACCESSLib;
+using System.Windows.Forms;
+using RAMSSWrapper;
 #endregion
 
-namespace RAMSSWrapper
+namespace RAMSSTransfer
 {
     public class CollectInfo
     {
@@ -17,16 +19,14 @@ namespace RAMSSWrapper
         private IDBIO1 RAMIDBIO1 { get; set; }
 
         private IGravityLoads1 RAMGravityloads { get; set; }
-        //Variables imported and exported during the process
-        //internal SCoordinate StartPointC { get; set; }
-        //internal SCoordinate EndPointC { get; set; }
-        //internal SCoordinate StartPointB { get; set; }
-        //internal SCoordinate EndPointB { get; set; }
-        //internal int Size { get; set; }
-        //internal object NumberofStuds { get; set; }
         #endregion
 
-        public CollectInfo(string FileName)
+        public CollectInfo()
+        {
+        }
+
+
+         public CollectInfo(string FileName)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace RAMSSWrapper
         /// <param name="Imodel"></param>
         /// <returns></returns>
         public List<BeamDataModel> GetBeams()
-        {
+        {      
             //Initialize Beam Model
             List<BeamDataModel> RAMBeams = new List<BeamDataModel>();
 
@@ -92,11 +92,13 @@ namespace RAMSSWrapper
                     //(EBeamFilter.eBeamFilter_Material, EMATERIALTYPES.ESteelMat && EMATERIALTYPES.ESteelJoistMat);
 
                 //Determine number of beams
-                int NumBeams = Ibeams.GetCount();
+                int NumBeams = Ibeams.GetCount();               
 
                 //Collect information on the multiple columns at that specific level
                 for (int Beamint = 0; Beamint < (NumBeams); Beamint++)
                 {
+                    //pgform.updateLabel("Collecting Beam Number: " + Beamint + " from Story: " + strStoryID);
+
                     //Get each individual columns
                     IBeam Ibeam = Ibeams.GetAt(Beamint);
 
@@ -150,10 +152,6 @@ namespace RAMSSWrapper
                         BeamStudsRAM = "0";
                     }
 
-                    //Collect Member force data
-                    double pdMaxRactLeft = 0, pdMaxReactRight = 0, pdSignLeft = 0, pdSignRight = 0;
-                    int ret = RAMGravityloads.GetMaxFactoredGravityBeamReact(Ibeam.lUID, ref pdMaxRactLeft, ref pdMaxReactRight, ref pdSignLeft, ref pdSignRight);
-
                     double axialStart = 0;
                     double momentMajorStart = 0;
                     double momentMinorStart = 0;
@@ -167,48 +165,57 @@ namespace RAMSSWrapper
                     double shearMajorEnd = 0;
                     double shearMinorEnd = 0;
                     double torsionEnd = 0;
+                    //Collect Member force data
+                    double pdMaxRactLeft = 0, pdMaxReactRight = 0, pdSignLeft = 0, pdSignRight = 0;
 
-                    IAnalyticalResult analytical = Ibeam.GetAnalyticalResult();
-                    IMemberForces memberForces = analytical.GetMaximumComboReactions(COMBO_MATERIAL_TYPE.GRAV_STEEL);
-                    int forceCount = memberForces.GetCount();
-                    for (int j = 0; j < memberForces.GetCount(); j++)
+                    try
                     {
-                        IMemberForce memberForce = memberForces.GetAt(j);
-
-                        //Start of Member
-                        if (j == 0)
+                        int ret = RAMGravityloads.GetMaxFactoredGravityBeamReact(Ibeam.lUID, ref pdMaxRactLeft, ref pdMaxReactRight, ref pdSignLeft, ref pdSignRight);
+                        IAnalyticalResult analytical = Ibeam.GetAnalyticalResult();
+                        IMemberForces memberForces = analytical.GetMaximumComboReactions(COMBO_MATERIAL_TYPE.GRAV_STEEL);
+                        int forceCount = memberForces.GetCount();
+                        for (int j = 0; j < memberForces.GetCount(); j++)
                         {
-                            // Only shears are supported for now -ktam 04/03/2018
-                            axialStart = memberForce.dAxial;
-                            momentMajorStart = memberForce.dMomentMajor;
-                            momentMinorStart = memberForce.dMomentMinor;
-                            //Unfactored
-                            //shearMajorStart =  memberForce.dShearMajor;
+                            IMemberForce memberForce = memberForces.GetAt(j);
 
-                            //Factored
-                            shearMajorStart = Math.Truncate((pdMaxRactLeft + (Math.Abs(pdSignLeft) * 0.95)) * pdSignLeft);
-                            shearMinorStart = memberForce.dShearMinor;
-                            torsionStart = memberForce.dTorsion;
-                        }
+                            //Start of Member
+                            if (j == 0)
+                            {
+                                // Only shears are supported for now -ktam 04/03/2018
+                                axialStart = memberForce.dAxial;
+                                momentMajorStart = memberForce.dMomentMajor;
+                                momentMinorStart = memberForce.dMomentMinor;
+                                //Unfactored
+                                //shearMajorStart =  memberForce.dShearMajor;
 
-                        //End of Member
-                        if (j == 1)
-                        {
-                            // Only shears are supported for now -ktam 04/03/2018
-                            axialEnd = memberForce.dAxial;
-                            momentMajorEnd = memberForce.dMomentMajor;
-                            momentMinorEnd = memberForce.dMomentMinor;
-                            //Unfactored
-                            //shearMajorEnd = memberForce.dShearMajor;
+                                //Factored
+                                shearMajorStart = Math.Truncate((pdMaxRactLeft + (Math.Abs(pdSignLeft) * 0.95)) * pdSignLeft);
+                                shearMinorStart = memberForce.dShearMinor;
+                                torsionStart = memberForce.dTorsion;
+                            }
 
-                            //Factored
-                            shearMajorEnd = Math.Truncate((pdMaxReactRight + (Math.Abs(pdSignRight) * 0.95)) * pdSignRight);
+                            //End of Member
+                            if (j == 1)
+                            {
+                                // Only shears are supported for now -ktam 04/03/2018
+                                axialEnd = memberForce.dAxial;
+                                momentMajorEnd = memberForce.dMomentMajor;
+                                momentMinorEnd = memberForce.dMomentMinor;
+                                //Unfactored
+                                //shearMajorEnd = memberForce.dShearMajor;
 
-                            shearMinorEnd = memberForce.dShearMinor;
-                            torsionEnd = memberForce.dTorsion;
+                                //Factored
+                                shearMajorEnd = Math.Truncate((pdMaxReactRight + (Math.Abs(pdSignRight) * 0.95)) * pdSignRight);
+
+                                shearMinorEnd = memberForce.dShearMinor;
+                                torsionEnd = memberForce.dTorsion;
+                            }
                         }
                     }
+                    catch
+                    {
 
+                    }                   
 
                     var RAMBeam = new BeamDataModel
                     {
@@ -237,6 +244,7 @@ namespace RAMSSWrapper
             }
 
             return RAMBeams;
+
         }
 
         /// <summary>

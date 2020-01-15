@@ -43,7 +43,6 @@
             this.UpdateButton = new System.Windows.Forms.Button();
             this.IgnoreButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // label4
@@ -238,7 +237,6 @@
         private System.Windows.Forms.Button IgnoreButton;
         public System.Windows.Forms.ListView LVDataList;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ColumnHeader RAMStoryLV;
     }
 }

@@ -10,7 +10,7 @@ using System.Threading;
 using System.IO;
 using System.Reflection;
 
-namespace RAMSSRuntime
+namespace RAMSSTransfer
 {
     public class Program
     {
@@ -24,21 +24,35 @@ namespace RAMSSRuntime
 
             //Initialize method
             CollectInfo RAMCollection = new CollectInfo(FilenameUser);
+            
+            List <BeamDataModel> RAMStlBeams = new List<BeamDataModel>();
+            List<BeamDataModel> RAMJoists = new List<BeamDataModel>();
+            List<ColumnDataModel> RAMColumns = new List<ColumnDataModel>();
+            List<VBDataModel> RAMVBs = new List<VBDataModel>();
 
             //Get the beams
-            List<BeamDataModel> RAMStlBeams = RAMCollection.GetBeams();
+            if (args[1] == "true")
+            {
+                RAMStlBeams = RAMCollection.GetBeams();
+            }
 
             //Get the joists
-            List<BeamDataModel> RAMJoists = RAMCollection.GetJoists();
-
-            //Concat Stl beams and Joists
-            List<BeamDataModel> RAMBeams = RAMStlBeams.Concat(RAMJoists).ToList();
-
-            //Get the Columns
-            List<ColumnDataModel> RAMColumns = RAMCollection.GetColumns();
+            if (args[2] == "true")
+            {
+                RAMJoists = RAMCollection.GetJoists();
+            }
 
             //Get the Columns
-            List<VBDataModel> RAMVBs = RAMCollection.GetVB();
+            if (args[3] == "true")
+            {
+                RAMColumns = RAMCollection.GetColumns();
+            }
+
+            //Get the VBs
+            if (args[4] == "true")
+            {
+                RAMVBs = RAMCollection.GetVB();
+            }
 
             Payload payload = new Payload(RAMStlBeams, RAMJoists, RAMColumns, RAMVBs);
 

@@ -51,3 +51,29 @@ E:\WORK\Selfmade Tools\Buttons\QAQCSAP[5.22.19]\QAQC\obj\Debug\QAQCSAP.csproj.Co
 E:\WORK\Selfmade Tools\Buttons\QAQCSAP[5.22.19]\QAQC\obj\Debug\QAQCSAP.dll
 E:\WORK\Selfmade Tools\Buttons\QAQCSAP[5.22.19]\QAQC\obj\Debug\QAQCSAP.pdb
 E:\WORK\Selfmade Tools\Buttons\QAQCSAP[5.22.19]\QAQC\bin\Debug\SAP2000v20.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\QAQCSAP.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\QAQCSAP.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\AdWindows.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\cs-CZ\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\de-DE\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\en-GB\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\en-US\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\es-ES\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\fr-FR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\it-IT\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\ja-JP\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\ko-KR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\pl-PL\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\pt-BR\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\ru-RU\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\zh-CN\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\zh-TW\AdWindows.resources.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.Properties.Resources.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.QAQCEdit.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.QAQCForm.resources
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.csproj.GenerateResource.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.csproj.CoreCompileInputs.cache
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.csproj.CopyComplete
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.pdb
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\ETABSv1.dll

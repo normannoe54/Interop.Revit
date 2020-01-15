@@ -34,6 +34,10 @@ namespace QAQCSAP
             //Get Selected Rows from List View
             using (Transaction t = new Transaction(doc, "Update"))
             {
+                //Constructors
+                bool notfound = false;
+                List<string> FamilyDNE = new List<string>();
+
                 t.Start("Update");
 
                 foreach (ListViewItem row in qaqcedit.LVDataList.SelectedItems)
@@ -46,12 +50,7 @@ namespace QAQCSAP
                     string ElementType = row.SubItems[0].Text;
                     string Concern = row.SubItems[3].Text;
                     string SAPValue = row.SubItems[5].Text;
-
-                    //Constructors
-                    bool notfound = false;
-                    List<string> FamilyDNE = new List<string>();
-
-
+                  
                     //Get Element
                     Element Element = doc.GetElement(ElementID);
 
@@ -120,21 +119,22 @@ namespace QAQCSAP
                             }
                         }
                     }
-
-                    if (notfound == true)
-                    {
-                        string Note = "The following families are not loaded:" + Environment.NewLine;
-                        foreach (string family in FamilyDNE)
-                        {
-                            Note = Note + family + Environment.NewLine;
-                        }
-
-                        Message.Display(Note, WindowType.Warning);
-                    }
                     //remove the row
                     //row.Remove();
                 }
                 t.Commit();
+
+                if (notfound == true)
+                {
+                    string Note = "The following families are not loaded:" + Environment.NewLine;
+                    foreach (string family in FamilyDNE)
+                    {
+                        Note = Note + family + Environment.NewLine;
+                    }
+
+                    Message.Display(Note, WindowType.Warning);
+                }
+
                 qaqcedit.UpdateTable();
             }           
         }

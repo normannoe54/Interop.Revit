@@ -38,12 +38,17 @@ namespace QAQCSAP
             //Iterate Beam Elements and set to data model
             foreach (Element ColumnElement in ColumnElements)
             {
+                
+
                 foreach (string param in FlagParameterNames)
                 {
+                    Parameter colparam = ColumnElement.LookupParameter(param);
+                    string colparamval = colparam.AsString();
+
                     //If column size is the issue
                     if (param == "Flag.SizeSAP")
                     {
-                        if ((ColumnElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        if ((colparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Column = new EditDataModel
@@ -96,10 +101,13 @@ namespace QAQCSAP
             {
                 foreach (string param in FlagParameterNames)
                 {
+                    Parameter beamparam = BeamElement.LookupParameter(param);
+                    string beamparamval = beamparam.AsString();
+
                     //If column size is the issue
                     if (param == "Flag.SizeSAP")
                     {
-                        if ((BeamElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        if ((beamparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel
@@ -152,10 +160,13 @@ namespace QAQCSAP
             {
                 foreach (string param in FlagParameterNames)
                 {
+                    Parameter vbparam = VBElement.LookupParameter(param);
+                    string vbparamval = vbparam.AsString();
+
                     //If column size is the issue
                     if (param == "Flag.SizeSAP")
                     {
-                        if ((VBElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        if ((vbparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel

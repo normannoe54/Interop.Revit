@@ -271,7 +271,6 @@
             this.ToleranceText.Text = "Tolerance Input (ft.)";
             this.ToleranceText.Click += new System.EventHandler(this.ToleranceText_Click);
             this.ToleranceText.TextChanged += new System.EventHandler(this.ToleranceText_TextChanged);
-            this.ToleranceText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Integer_KeyPress);
             // 
             // TolerancePanel
             // 

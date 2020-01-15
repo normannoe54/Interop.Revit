@@ -448,6 +448,8 @@ namespace QAQCSAP
                     //Rename View
                     view3D.Name = ViewName;
 
+                    view3D.ViewTemplateId = new ElementId(-1);
+
                     //Initialize list
                     List<ElementId> category = new List<ElementId>();
 

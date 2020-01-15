@@ -2,11 +2,11 @@
 <RevitAddIns>
   <AddIn Type="Application">
     <Name>Interoperability</Name>
-    <Description>Generic Revit Button</Description>
-    <Assembly>RevitButton.dll</Assembly>
-    <FullClassName>RevitButton.Main</FullClassName>
+    <Description>Check Revit Model against SAP Model</Description>
+    <Assembly>QAQCSAP.dll</Assembly>
+    <FullClassName>QAQCSAP.Main</FullClassName>
     <ClientId>8ff1c968-2b1f-4d4c-9809-dbd93be10880</ClientId>
     <VendorId>com.gmail@normnoe54</VendorId>
-    <VendorDescription>Generic Revit</VendorDescription>
+    <VendorDescription>Norman Noe</VendorDescription>
   </AddIn>
 </RevitAddIns>

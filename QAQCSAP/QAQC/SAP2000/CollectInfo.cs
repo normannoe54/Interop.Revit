@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using SAP2000v20;
+using ETABSv1;
 #endregion
 
 namespace QAQCSAP
@@ -20,15 +20,44 @@ namespace QAQCSAP
         /// <returns></returns>
         public List<BeamDataModel> GetBeams(string Filename)
         {
-            cHelper helper = new Helper();
-            cOAPI ApplicationObject;
-            ApplicationObject = helper.GetObject("CSI.SAP2000.API.SapObject");
+            bool initiate = false;
+            cOAPI SapObject =null;
+            try
+            {
+                SapObject = (cOAPI)System.Runtime.InteropServices.Marshal.GetActiveObject("CSI.ETABS.API.ETABSObject");
+
+            }
+            catch
+            {
+            }
+
+            int ret = 0;
+            if (SapObject ==null)
+            {
+                cHelper myHelper;
+                
+                myHelper = new Helper();
+                
+                string pathToETABS = @"C:\Program Files\Computers and Structures\ETABS 18\ETABS.exe";
+                SapObject = myHelper.CreateObject(pathToETABS);
+
+                //start SAP2000 application
+                ret = SapObject.ApplicationStart();
+                initiate = true;
+            }
+
+            //create SapModel object
+            cSapModel SapModel;
+            SapModel = SapObject.SapModel;
+
+            //open an existing file
+            ret = SapModel.File.OpenFile(Filename);
 
             //Constructors
             List<BeamDataModel> SAPBeams = new List<BeamDataModel>();
-            bool jointtoggle = false;
-            bool Sectiontoggle = false;
-            bool Locationtoggle = false;
+            //bool jointtoggle = false;
+            //bool Sectiontoggle = false;
+            //bool Locationtoggle = false;
 
             List<int> FrameIDJoint = new List<int>();
             List<int> JointI = new List<int>();
@@ -40,144 +69,66 @@ namespace QAQCSAP
             List<double> zloc = new List<double>();
             List<int> JointID = new List<int>();
 
-            //Open $2k text file
-            using (StreamReader file = new StreamReader(Filename))
+            int NumberNames = 0;
+            string[] MyName = null;
+
+            List<string>FrameNames = new List<string>();
+
+            ret = SapModel.FrameObj.GetNameList(ref NumberNames, ref MyName);
+            List<string> ElementName = MyName.ToList();        
+
+            List<string>StartPoint = new List<string>();
+            List<string> EndPoint = new List<string>();
+            string point1 = "";
+            string point2 = "";
+            double x1 = 0;
+            double x2 = 0;
+            double y1 = 0;
+            double y2 = 0;
+            double z1 = 0;
+            double z2 = 0;
+            string PropName = "";
+            string SAuto = "";
+
+            //Collect data for output
+            foreach (string elementName in ElementName)
             {
-                string ln;
+                //Retrieve points and section
+                ret = SapModel.FrameObj.GetPoints(elementName, ref point1, ref point2);
+                ret = SapModel.FrameObj.GetSection(elementName, ref PropName, ref SAuto);
 
-                while ((ln = file.ReadLine()) != null)
-                {
-                    //Untoggle after empty line
-                    if (ln == " ")
-                    {
-                        jointtoggle = false;
-                        Sectiontoggle = false;
-                        Locationtoggle = false;
-                    }
-                    
-                    //Update Lists if toggle is true
-                    //Joint Info
-                    if (jointtoggle == true)
-                    {
-                        //FrameID, JointI, JointJ
-                        string FrameIDstring = StringEditor("Frame=", "   JointI=", ln);
-                        string JointIIDstring = StringEditor("JointI=", "   JointJ=", ln);
-                        string JointJIDstring = StringEditor("JointJ=", "   IsCurved=", ln);
-                        int FrameIDint;
-                        int JointIint;
-                        int JointJint;
-                        Int32.TryParse(FrameIDstring, out FrameIDint);
-                        Int32.TryParse(JointIIDstring, out JointIint);
-                        Int32.TryParse(JointJIDstring, out JointJint);
-
-                        //Write to List
-                        FrameIDJoint.Add(FrameIDint);
-                        JointI.Add(JointIint);
-                        JointJ.Add(JointJint);
-                    }
-
-                    //Section Info
-                    if (Sectiontoggle == true)
-                    {
-                        //Section Sizse
-                        string FrameIDstring = StringEditor("Frame=", "   AutoSelect=", ln);
-                        string SectionNamestring = StringEditor("AnalSect=", "   MatProp=", ln);
-                        int FrameIDint;
-                        Int32.TryParse(FrameIDstring, out FrameIDint);
-
-                        //Write to list
-                        FrameIDSection.Add(FrameIDint);
-                        SectionName.Add(SectionNamestring);
-                    }
-
-                    //Location of Joints
-                    if (Locationtoggle == true)
-                    {
-                        //Section Size
-                        string JointIDstring = StringEditor("Joint=", "   CoordSys=", ln);
-                        string xstring = StringEditor("XorR=", "   Y=", ln);
-                        string ystring = StringEditor("Y=","   Z=", ln);
-                        string zstring = StringEditor("Z=","   SpecialJt=", ln);
-                        int JointIDint;
-                        Int32.TryParse(JointIDstring, out JointIDint);
-                        xloc.Add(Convert.ToDouble(xstring));
-                        yloc.Add(Convert.ToDouble(ystring));
-                        zloc.Add(Convert.ToDouble(zstring));
-
-                        //Write to list
-                        JointID.Add(JointIDint);
-                    }
-
-                    //Initiate joint toggle
-                    if (ln == "TABLE:  \"CONNECTIVITY - FRAME\"")
-                    {
-                        jointtoggle = true;
-                    }
-                    //Initiate joint toggle
-                    if (ln == "TABLE:  \"FRAME SECTION ASSIGNMENTS\"")
-                    {
-                        Sectiontoggle = true;
-                    }
-                    //Initiate joint toggle
-                    if (ln == "TABLE:  \"JOINT COORDINATES\"")
-                    {
-                        Locationtoggle = true;
-                    }
-                }
-
-                file.Close();
-            }
-
-            //Convert all info into BeamDataModels
-            for (int i = 0; i < (FrameIDJoint.Count); i++)
-            {
-                //Iterate through each frame in $2k file
-                int Frame = FrameIDJoint[i];
-
-                //Get the start and end joint
-                double xI = xloc[JointID.IndexOf(JointI[i])];
-                double yI = yloc[JointID.IndexOf(JointI[i])];
-                double zI = zloc[JointID.IndexOf(JointI[i])];
-
-                double xJ = xloc[JointID.IndexOf(JointJ[i])];
-                double yJ = yloc[JointID.IndexOf(JointJ[i])];
-                double zJ = zloc[JointID.IndexOf(JointJ[i])];
-
-                //Get the SAP Section
-                string SAPSection = SectionName[(FrameIDSection.IndexOf(Frame))];
+                //Get Point Locations
+                ret = SapModel.PointObj.GetCoordCartesian(point1, ref x1, ref y1, ref z1);
+                ret = SapModel.PointObj.GetCoordCartesian(point2, ref x2, ref y2, ref z2);
 
                 //Create beammodels
                 var SAPBeam = new BeamDataModel
                 {
-                    x = (xI + xJ) / (2 * 12),
-                    y = (yI + yJ) / (2 * 12),
-                    z = (zI + zJ) / (2 * 12),
-                    name = SAPSection,
-                    ID = Frame.ToString(),
+                    x = (x1 + x2) / (2 * 12),
+                    y = (y1 + y2) / (2 * 12),
+                    z = (z1 + z2) / (2 * 12),
+                    name = PropName,
+                    ID = elementName,
                 };
 
                 SAPBeams.Add(SAPBeam);
+
             }
+
+            //close SAP2000
+            if (initiate)
+            {
+                SapObject.ApplicationExit(false);
+            }
+
+            SapModel = null;
+            SapObject = null;
+
+
             return SAPBeams;
         }
       
-        /// <summary>
-        /// Collect Substring from text file
-        /// </summary>
-        /// <param name="firstst"></param>
-        /// <param name="secondst"></param>
-        /// <param name="ln"></param>
-        /// <returns></returns>
-        private string StringEditor(string firstst, string secondst, string ln)
-        {
-            int pfrom = ln.IndexOf(firstst) + firstst.Length;
-            int pTo = ln.IndexOf(secondst);
-            string outputst = ln.Substring(pfrom, pTo - pfrom);
-            return outputst;
-        }
         #endregion
-
-
 
     }
 }

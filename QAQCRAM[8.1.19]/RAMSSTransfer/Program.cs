@@ -16,9 +16,11 @@ namespace RAMSSRuntime
     {
         static void Main(string[] args)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
 
             string FilenameUser = args[0];
+            //string FilenameUser = @"C:\Users\nnoe\Documents\QAQCTesting\R to R\ECB3.rss";
+            //string FilenameUser = @"C:\Users\nnoe\Documents\QAQCTesting\R to R\Podium_v10.rss";
 
             //Initialize method
             CollectInfo RAMCollection = new CollectInfo(FilenameUser);

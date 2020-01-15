@@ -55,18 +55,57 @@ namespace RAMSSWrapper
         /// <summary>
         /// Axial Load
         /// </summary>
-        public double P { get; set; }
+        public double PS { get; set; }
 
         /// <summary>
-        /// Shear Value
+        /// Shear Major Value
         /// </summary>
-        public double V { get; set; }
+        public double VMajS { get; set; }
+
+        /// <summary>
+        /// Shear Minor Value
+        /// </summary>
+        public double VMinS { get; set; }
 
         /// <summary>
         /// Major Moment
         /// </summary>
-        public double M3 { get; set; }
+        public double MMajS { get; set; }
 
+        /// <summary>
+        /// Minor Moment
+        /// </summary>
+        public double MMinS { get; set; }
+
+        /// <summary>
+        /// Axial Load
+        /// </summary>
+        public double PE { get; set; }
+
+        /// <summary>
+        /// Shear Major Value
+        /// </summary>
+        public double VMajE { get; set; }
+
+        /// <summary>
+        /// Shear Minor Value
+        /// </summary>
+        public double VMinE { get; set; }
+
+        /// <summary>
+        /// Major Moment
+        /// </summary>
+        public double MMajE { get; set; }
+
+        /// <summary>
+        /// Minor Moment
+        /// </summary>
+        public double MMinE { get; set; }
+
+        /// <summary>
+        /// RAM Story
+        /// </summary>
+        public string RAMStory { get; set; }
         #endregion
 
         #region constructor

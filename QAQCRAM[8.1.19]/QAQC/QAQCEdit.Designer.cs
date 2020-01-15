@@ -39,8 +39,11 @@
             this.ConcernLV = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RevitParamLV = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RAMParamLV = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RAMStoryLV = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.UpdateButton = new System.Windows.Forms.Button();
             this.IgnoreButton = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // label4
@@ -48,7 +51,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(277, 14);
+            this.label4.Location = new System.Drawing.Point(338, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 52);
             this.label4.TabIndex = 18;
@@ -59,7 +62,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(302, 14);
+            this.label3.Location = new System.Drawing.Point(363, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 52);
             this.label3.TabIndex = 17;
@@ -70,7 +73,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(210, 14);
+            this.label2.Location = new System.Drawing.Point(271, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 52);
             this.label2.TabIndex = 16;
@@ -82,7 +85,7 @@
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseButton.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloseButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.CloseButton.Location = new System.Drawing.Point(580, 3);
+            this.CloseButton.Location = new System.Drawing.Point(640, 3);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(23, 25);
             this.CloseButton.TabIndex = 19;
@@ -101,15 +104,17 @@
             this.SectionSizeLV,
             this.ConcernLV,
             this.RevitParamLV,
-            this.RAMParamLV});
+            this.RAMParamLV,
+            this.RAMStoryLV});
             this.LVDataList.ForeColor = System.Drawing.SystemColors.Window;
             this.LVDataList.FullRowSelect = true;
             this.LVDataList.GridLines = true;
             this.LVDataList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.LVDataList.HideSelection = false;
             this.LVDataList.Location = new System.Drawing.Point(5, 83);
             this.LVDataList.Name = "LVDataList";
             this.LVDataList.OwnerDraw = true;
-            this.LVDataList.Size = new System.Drawing.Size(588, 381);
+            this.LVDataList.Size = new System.Drawing.Size(658, 381);
             this.LVDataList.TabIndex = 21;
             this.LVDataList.UseCompatibleStateImageBehavior = false;
             this.LVDataList.View = System.Windows.Forms.View.Details;
@@ -148,6 +153,11 @@
             this.RAMParamLV.Text = "     RAM_Value";
             this.RAMParamLV.Width = 106;
             // 
+            // RAMStoryLV
+            // 
+            this.RAMStoryLV.Text = "RAM_Story";
+            this.RAMStoryLV.Width = 72;
+            // 
             // UpdateButton
             // 
             this.UpdateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
@@ -156,7 +166,7 @@
             this.UpdateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UpdateButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UpdateButton.ForeColor = System.Drawing.Color.White;
-            this.UpdateButton.Location = new System.Drawing.Point(127, 490);
+            this.UpdateButton.Location = new System.Drawing.Point(170, 529);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(115, 39);
             this.UpdateButton.TabIndex = 22;
@@ -172,7 +182,7 @@
             this.IgnoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IgnoreButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IgnoreButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
-            this.IgnoreButton.Location = new System.Drawing.Point(322, 490);
+            this.IgnoreButton.Location = new System.Drawing.Point(372, 529);
             this.IgnoreButton.Name = "IgnoreButton";
             this.IgnoreButton.Size = new System.Drawing.Size(115, 39);
             this.IgnoreButton.TabIndex = 23;
@@ -180,12 +190,20 @@
             this.IgnoreButton.UseVisualStyleBackColor = false;
             this.IgnoreButton.Click += new System.EventHandler(this.IgnoreButton_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 480);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(645, 23);
+            this.progressBar1.TabIndex = 24;
+            // 
             // QAQCEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.ClientSize = new System.Drawing.Size(605, 545);
+            this.ClientSize = new System.Drawing.Size(669, 598);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.IgnoreButton);
             this.Controls.Add(this.UpdateButton);
             this.Controls.Add(this.LVDataList);
@@ -219,5 +237,8 @@
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Button IgnoreButton;
         public System.Windows.Forms.ListView LVDataList;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ColumnHeader RAMStoryLV;
     }
 }

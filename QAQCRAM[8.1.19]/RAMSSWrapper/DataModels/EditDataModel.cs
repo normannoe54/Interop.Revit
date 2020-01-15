@@ -35,6 +35,11 @@ namespace RAMSSWrapper
         /// </summary>
         public string RAMValue { get; set; }
 
+        /// <summary>
+        /// RAM Story
+        /// </summary>
+        public string RAMStory { get; set; }
+
         #endregion
 
         #region constructor

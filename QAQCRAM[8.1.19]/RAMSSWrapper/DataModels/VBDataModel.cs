@@ -32,6 +32,11 @@ namespace RAMSSWrapper
         /// </summary>
         public string name { get; set; }
 
+        /// <summary>
+        /// Story
+        /// </summary>
+        public string story { get; set; }
+
         #endregion
 
         #region constructor

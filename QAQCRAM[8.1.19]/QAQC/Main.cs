@@ -28,7 +28,7 @@ namespace QAQCRAM
             application.ApplicationClosing += a_ApplicationClosing;
 
             //Set Application to Idling
-            application.Idling += a_Idling;
+            //application.Idling += a_Idling;
 
             return Result.Succeeded;
         }
@@ -42,6 +42,7 @@ namespace QAQCRAM
         {
 
         }
+
         /// <summary>
         /// Closing command
         /// </summary>

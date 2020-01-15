@@ -21,7 +21,9 @@ namespace QAQCRAM
             SFParamaterNames.Add("Flag.Camber");
             SFParamaterNames.Add("Flag.Studs");
             SFParamaterNames.Add("Flag.BeamSize");
-
+            SFParamaterNames.Add("RAM.VMajStart");
+            SFParamaterNames.Add("RAM.VMajEnd");
+            SFParamaterNames.Add("RAM.BeamStory");
             return SFParamaterNames;
         }
 
@@ -36,6 +38,7 @@ namespace QAQCRAM
             ColParamaterNames.Add("RAM.ColumnOrient");
             ColParamaterNames.Add("Flag.ColumnSize");
             ColParamaterNames.Add("Flag.ColumnOrient");
+            ColParamaterNames.Add("RAM.ColStory");
 
             return ColParamaterNames;
         }
@@ -49,6 +52,7 @@ namespace QAQCRAM
             List<string> VBParamaterNames = new List<string>();
             VBParamaterNames.Add("RAM.VBSize");
             VBParamaterNames.Add("Flag.VBSize");
+            VBParamaterNames.Add("RAM.VBStory");
 
             return VBParamaterNames;
         }

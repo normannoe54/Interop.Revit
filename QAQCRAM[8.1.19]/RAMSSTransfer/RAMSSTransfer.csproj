@@ -76,6 +76,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(AppData)\Autodesk\Revit\Addins\2020" copy "$(ProjectDir)$(OutputPath)*.exe" "$(AppData)\Autodesk\REVIT\Addins\2020"</PostBuildEvent>
+    <PostBuildEvent>if exist "$(AppData)\Autodesk\Revit\Addins\2018" copy "$(ProjectDir)$(OutputPath)*.exe" "$(AppData)\Autodesk\REVIT\Addins\2018"</PostBuildEvent>
   </PropertyGroup>
 </Project>

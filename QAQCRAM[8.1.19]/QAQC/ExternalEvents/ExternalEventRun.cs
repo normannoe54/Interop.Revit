@@ -191,9 +191,13 @@ namespace QAQCRAM
 
             //In EXE FILEPATH
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
             string exefilepath = assemblyFolder + @"\RAMSSTransfer.exe";
 
             string jsonfilepath = assemblyFolder + @"\MetaData.json";
+
+            //Need this for folders with spaces...
+            string inputfilename = "\"" + FilenameUser + "\"";
 
             #region Collect RAM Data from external process
 
@@ -203,26 +207,26 @@ namespace QAQCRAM
             newprocess.StartInfo.FileName = exefilepath;
 
             //Set Filename
-            newprocess.StartInfo.Arguments = FilenameUser;
+            newprocess.StartInfo.Arguments = inputfilename;
 
             bool trytest = newprocess.Start();
             newprocess.WaitForExit();
 
             Payload payloadoutput = JsonConvert.DeserializeObject<Payload>(File.ReadAllText(jsonfilepath));
 
-            ////Get the joists
+            //Get the joists
             List<BeamDataModel> RAMJoists = payloadoutput._RAMJoists;
 
-            ////Get the beams
+            //Get the beams
             List<BeamDataModel> RAMStlBeams = payloadoutput._RAMStlBeams;
 
-            ////Concat Stl beams and Joists
+            //Concat Stl beams and Joists
             List<BeamDataModel> RAMBeams = RAMStlBeams.Concat(RAMJoists).ToList();
 
-            ////Get the Columns
+            //Get the Columns
             List<ColumnDataModel> RAMColumns = payloadoutput._RAMColumns;
 
-            ////Get the Columns
+            //Get the Columns
             List<VBDataModel> RAMVBs = payloadoutput._RAMVBs;
 
             #endregion
@@ -473,6 +477,18 @@ namespace QAQCRAM
                         param = BeamElements[MatchI].LookupParameter(SFParamaterNames[2]);
                         param.Set(RAMbeam.name);
 
+                        //Set VMajStart
+                        param = BeamElements[MatchI].LookupParameter(SFParamaterNames[6]);
+                        param.Set(RAMbeam.VMajS.ToString());
+
+                        //Set VMajEnd
+                        param = BeamElements[MatchI].LookupParameter(SFParamaterNames[7]);
+                        param.Set(RAMbeam.VMajE.ToString());
+
+                        //Set story
+                        param = BeamElements[MatchI].LookupParameter(SFParamaterNames[8]);
+                        param.Set(RAMbeam.story.ToString());
+
                         //FLAG TIME BABY
                         //Camber Flag
                         //There needs to be a parser for camber to equal Rams output\
@@ -555,6 +571,10 @@ namespace QAQCRAM
                         param = ColumnElements[MatchI].LookupParameter(ColParamaterNames[1]);
                         param.Set(RAMcolumn.rotation.ToString());
 
+                        //Set Story
+                        param = ColumnElements[MatchI].LookupParameter(ColParamaterNames[4]);
+                        param.Set(RAMcolumn.story.ToString());
+
                         //There needs to be a parser for camber to equal Rams output
                         ColumnDataModel MatchedRevitColumn = RevitColumns[MatchI];
 
@@ -619,6 +639,10 @@ namespace QAQCRAM
                         //Set Size
                         Parameter param = VBElements[MatchI].LookupParameter(VBParamaterNames[0]);
                         param.Set(RAMvb.name);
+
+                        //Set story
+                        param = VBElements[MatchI].LookupParameter(VBParamaterNames[2]);
+                        param.Set(RAMvb.story);
 
                         //There needs to be a parser for camber to equal Rams output
                         VBDataModel MatchedRevitVB = RevitVBs[MatchI];
@@ -804,7 +828,11 @@ namespace QAQCRAM
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "True", false));
 
                             //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
                         }
 
                         //Add those filter rules to the view
@@ -814,10 +842,13 @@ namespace QAQCRAM
                         OverrideGraphicSettings filterSettings = new OverrideGraphicSettings();
 
                         //Set the color of the background pattern
+#if REVIT2018
+                        filterSettings.SetProjectionFillColor(color);
+                        filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                         filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                        //Set Fill Pattern
                         filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                         //Set the filters to the new 3D view
                         view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -828,9 +859,9 @@ namespace QAQCRAM
                         //Clear the filter rules after its been set to ensure no carry over
                         filterRules.Clear();
 
-                        #endregion
+#endregion
 
-                        #region Beam Filters Flags
+#region Beam Filters Flags
                         //All the beam filters
                         for (int i = 0; i < (FilterNamesBeams.Count); i++)
                         {
@@ -856,8 +887,11 @@ namespace QAQCRAM
                             //Create Parameter Rule
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "False", false));
 
-                            //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
 
                             //Add those filter rules to the view
                             view3D.AddFilter(parameterFilterElement.Id);
@@ -865,11 +899,13 @@ namespace QAQCRAM
                             //Initialize filterSettings
                             filterSettings = new OverrideGraphicSettings();
 
-                            //Set the color of the background pattern
+#if REVIT2018
+                            filterSettings.SetProjectionFillColor(color);
+                            filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                             filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                            //Set Fill Pattern
                             filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                             //Set the filters to the new 3D view
                             view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -881,10 +917,10 @@ namespace QAQCRAM
                             filterRules.Clear();
                         }
                     }
-                    #endregion
+#endregion
 
                     //Change Category to Column
-                    #region Accetpable Column Filter
+#region Accetpable Column Filter
                     category.Clear();
                     category.Add(new ElementId(BuiltInCategory.OST_StructuralColumns));
 
@@ -915,8 +951,11 @@ namespace QAQCRAM
                             //Create Parameter Rule
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "True", false));
 
-                            //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
                         }
 
                         //Add those filter rules to the view
@@ -925,11 +964,13 @@ namespace QAQCRAM
                         //Initialize filterSettings
                         OverrideGraphicSettings filterSettings = new OverrideGraphicSettings();
 
-                        //Set the color of the background pattern
+#if REVIT2018
+                        filterSettings.SetProjectionFillColor(color);
+                        filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                         filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                        //Set Fill Pattern
                         filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                         //Set the filters to the new 3D view
                         view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -940,9 +981,9 @@ namespace QAQCRAM
                         //Clear the filter rules after its been set to ensure no carry over
                         filterRules.Clear();
 
-                        #endregion
+#endregion
 
-                        #region Column Filters Flags
+#region Column Filters Flags
                         //All the column filters
                         for (int i = 0; i < (FilterNamesColumns.Count); i++)
                         {
@@ -969,7 +1010,11 @@ namespace QAQCRAM
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "False", false));
 
                             //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
 
                             //Add those filter rules to the view
                             view3D.AddFilter(parameterFilterElement.Id);
@@ -977,11 +1022,13 @@ namespace QAQCRAM
                             //Initialize filterSettings
                             filterSettings = new OverrideGraphicSettings();
 
-                            //Set the color of the background pattern
+#if REVIT2018
+                            filterSettings.SetProjectionFillColor(color);
+                            filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                             filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                            //Set Fill Pattern
                             filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                             //Set the filters to the new 3D view
                             view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -993,10 +1040,10 @@ namespace QAQCRAM
                             filterRules.Clear();
                         }
                     }
-                    #endregion
+#endregion
 
                     //Change Category to VB
-                    #region Acceptable VB Filter
+#region Acceptable VB Filter
 
                     //Create Acceptable VB Filter
 
@@ -1031,9 +1078,11 @@ namespace QAQCRAM
 
                             //Create Parameter Rule
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "True", false));
-
-                            //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
                         }
 
                         //Add those filter rules to the view
@@ -1042,11 +1091,13 @@ namespace QAQCRAM
                         //Initialize filterSettings
                         OverrideGraphicSettings filterSettings = new OverrideGraphicSettings();
 
-                        //Set the color of the background pattern
+#if REVIT2018
+                        filterSettings.SetProjectionFillColor(color);
+                        filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                         filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                        //Set Fill Pattern
                         filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                         //Set the filters to the new 3D view
                         view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -1056,10 +1107,9 @@ namespace QAQCRAM
 
                         //Clear the filter rules after its been set to ensure no carry over
                         filterRules.Clear();
+#endregion
 
-                        #endregion
-
-                        #region VB Filters Flags
+#region VB Filters Flags
                         //All the beam filters
                         for (int i = 0; i < (FilterNamesVBs.Count); i++)
                         {
@@ -1085,8 +1135,11 @@ namespace QAQCRAM
                             //Create Parameter Rule
                             filterRules.Add(ParameterFilterRuleFactory.CreateEqualsRule(sharedParamId, "False", false));
 
-                            //Cumulate all the filter rules
+#if REVIT2018
+                            parameterFilterElement.SetRules(filterRules);
+#else
                             parameterFilterElement.SetElementFilter(new ElementParameterFilter(filterRules));
+#endif
 
                             //Add those filter rules to the view
                             view3D.AddFilter(parameterFilterElement.Id);
@@ -1094,11 +1147,13 @@ namespace QAQCRAM
                             //Initialize filterSettings
                             filterSettings = new OverrideGraphicSettings();
 
-                            //Set the color of the background pattern
+#if REVIT2018
+                            filterSettings.SetProjectionFillColor(color);
+                            filterSettings.SetProjectionFillPatternId(SolidPatternId);
+#else
                             filterSettings.SetSurfaceBackgroundPatternColor(color);
-
-                            //Set Fill Pattern
                             filterSettings.SetSurfaceBackgroundPatternId(SolidPatternId);
+#endif
 
                             //Set the filters to the new 3D view
                             view3D.SetFilterOverrides(parameterFilterElement.Id, filterSettings);
@@ -1110,7 +1165,7 @@ namespace QAQCRAM
                             filterRules.Clear();
                         }
                     }
-                    #endregion
+#endregion
 
                     t.Commit();
                 }
@@ -1125,7 +1180,7 @@ namespace QAQCRAM
                     break;
                 }
             }
-            #endregion
+#endregion
 
             //Close the form
             qaqcform.Close();

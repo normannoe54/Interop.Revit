@@ -36,6 +36,10 @@ namespace QAQCRAM
             {
                 t.Start("Update");
 
+                //Constructors
+                bool notfound = false;
+                List<string> FamilyDNE = new List<string>();
+
                 foreach (ListViewItem row in qaqcedit.LVDataList.SelectedItems)
                 {
                     string ElementIDUser = row.SubItems[1].Text;
@@ -47,11 +51,7 @@ namespace QAQCRAM
                     string Concern = row.SubItems[3].Text;
                     string RAMValue = row.SubItems[5].Text;
 
-                    //Constructors
-                    bool notfound = false;
-                    List<string> FamilyDNE = new List<string>();
-
-
+                   
                     //Get Element
                     Element Element = doc.GetElement(ElementID);
 
@@ -110,6 +110,8 @@ namespace QAQCRAM
                                 Parameter param = Element.LookupParameter("Flag.ColumnSize");
                                 param.Set("True");
                             }
+
+                            qaqcedit.updateProgressBar(1);
                         }
                         if (Concern == "Rotation")
                         {
@@ -141,20 +143,23 @@ namespace QAQCRAM
                         }
                     }
 
-                    if (notfound == true)
-                    {
-                        string Note = "The following families are not loaded:" + Environment.NewLine;
-                        foreach (string family in FamilyDNE)
-                        {
-                            Note = Note + family + Environment.NewLine;
-                        }
-
-                        Message.Display(Note, WindowType.Warning);
-                    }
+                    qaqcedit.updateProgressBar(1);
                     //remove the row
                     //row.Remove();
                 }
                 t.Commit();
+
+                if (notfound == true)
+                {
+                    string Note = "The following families are not loaded:" + Environment.NewLine;
+                    foreach (string family in FamilyDNE)
+                    {
+                        Note = Note + family + Environment.NewLine;
+                    }
+
+                    Message.Display(Note, WindowType.Warning);
+                }
+
                 qaqcedit.UpdateTable();
             }           
         }

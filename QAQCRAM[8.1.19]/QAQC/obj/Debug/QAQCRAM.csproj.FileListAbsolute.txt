@@ -123,7 +123,6 @@ C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Newt
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPI.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPIUI.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\ManagedMC3.dll
-C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\AdpSDKCSharpWrapper.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPIFoundation.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitDBAPI.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\PersistenceDBAPI.dll
@@ -170,10 +169,7 @@ C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Esse
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\EnergyAnalysisUtilitiesAPI.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\DetailUIAPI.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\UIFrameworkServices.dll
-C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Autodesk.UI.Themes.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Xceed.Wpf.AvalonDock.dll
-C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\Autodesk.UI.Windows.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPI.xml
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAPIUI.xml
-C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\bin\Debug\RevitAddInUtility.xml
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCRAM[8.1.19]\QAQC\obj\Debug\QAQCRAM.csprojAssemblyReference.cache

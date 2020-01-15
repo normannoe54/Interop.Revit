@@ -40,6 +40,11 @@ namespace RAMSSWrapper
         /// </summary>
         public double rotation { get; set; }
 
+        /// <summary>
+        /// Story
+        /// </summary>
+        public string story{get;set;}
+
         #endregion
 
         #region constructor

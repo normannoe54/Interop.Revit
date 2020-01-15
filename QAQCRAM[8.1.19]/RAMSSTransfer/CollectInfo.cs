@@ -13,8 +13,10 @@ namespace RAMSSWrapper
     public class CollectInfo
     {
         #region Internal RAM Functions
-        private readonly IModel Imodel;
-        private readonly IDBIO1 RAMIDBIO1;
+        private IModel Imodel { get; set; }
+        private IDBIO1 RAMIDBIO1 { get; set; }
+
+        private IGravityLoads1 RAMGravityloads { get; set; }
         //Variables imported and exported during the process
         //internal SCoordinate StartPointC { get; set; }
         //internal SCoordinate EndPointC { get; set; }
@@ -39,6 +41,8 @@ namespace RAMSSWrapper
 
                 //Load the model data
                 Imodel = RAMIDBIO1.GetDispInterfacePointerByEnum(EINTERFACES.IModel_INT);
+
+                RAMGravityloads = RAMIDBIO1.GetDispInterfacePointerByEnum(EINTERFACES.IGravityLoads_INT);
             }
             catch
             {
@@ -146,6 +150,66 @@ namespace RAMSSWrapper
                         BeamStudsRAM = "0";
                     }
 
+                    //Collect Member force data
+                    double pdMaxRactLeft = 0, pdMaxReactRight = 0, pdSignLeft = 0, pdSignRight = 0;
+                    int ret = RAMGravityloads.GetMaxFactoredGravityBeamReact(Ibeam.lUID, ref pdMaxRactLeft, ref pdMaxReactRight, ref pdSignLeft, ref pdSignRight);
+
+                    double axialStart = 0;
+                    double momentMajorStart = 0;
+                    double momentMinorStart = 0;
+                    double shearMajorStart = 0;
+                    double shearMinorStart = 0;
+                    double torsionStart = 0;
+
+                    double axialEnd = 0;
+                    double momentMajorEnd = 0;
+                    double momentMinorEnd = 0;
+                    double shearMajorEnd = 0;
+                    double shearMinorEnd = 0;
+                    double torsionEnd = 0;
+
+                    IAnalyticalResult analytical = Ibeam.GetAnalyticalResult();
+                    IMemberForces memberForces = analytical.GetMaximumComboReactions(COMBO_MATERIAL_TYPE.GRAV_STEEL);
+                    int forceCount = memberForces.GetCount();
+                    for (int j = 0; j < memberForces.GetCount(); j++)
+                    {
+                        IMemberForce memberForce = memberForces.GetAt(j);
+
+                        //Start of Member
+                        if (j == 0)
+                        {
+                            // Only shears are supported for now -ktam 04/03/2018
+                            axialStart = memberForce.dAxial;
+                            momentMajorStart = memberForce.dMomentMajor;
+                            momentMinorStart = memberForce.dMomentMinor;
+                            //Unfactored
+                            //shearMajorStart =  memberForce.dShearMajor;
+
+                            //Factored
+                            shearMajorStart = Math.Truncate((pdMaxRactLeft + (Math.Abs(pdSignLeft) * 0.95)) * pdSignLeft);
+                            shearMinorStart = memberForce.dShearMinor;
+                            torsionStart = memberForce.dTorsion;
+                        }
+
+                        //End of Member
+                        if (j == 1)
+                        {
+                            // Only shears are supported for now -ktam 04/03/2018
+                            axialEnd = memberForce.dAxial;
+                            momentMajorEnd = memberForce.dMomentMajor;
+                            momentMinorEnd = memberForce.dMomentMinor;
+                            //Unfactored
+                            //shearMajorEnd = memberForce.dShearMajor;
+
+                            //Factored
+                            shearMajorEnd = Math.Truncate((pdMaxReactRight + (Math.Abs(pdSignRight) * 0.95)) * pdSignRight);
+
+                            shearMinorEnd = memberForce.dShearMinor;
+                            torsionEnd = memberForce.dTorsion;
+                        }
+                    }
+
+
                     var RAMBeam = new BeamDataModel
                     {
                         x = (StartPointB.dXLoc + EndPointB.dXLoc) / (2 * 12),
@@ -155,8 +219,18 @@ namespace RAMSSWrapper
                         studs = SimpleRefine.StringTrimmer(BeamStudsRAM),
                         camber = camberfracstring,
                         story = Istory.strLabel,
-                        ID = Ibeam.lLabel.ToString()
-                };
+                        ID = Ibeam.lLabel.ToString(),
+                        PS = axialStart,
+                        PE = axialEnd,
+                        VMajS = shearMajorStart,
+                        VMajE = shearMajorEnd,
+                        VMinS = shearMinorStart,
+                        VMinE = shearMinorEnd,
+                        MMinS = momentMinorStart,
+                        MMinE = momentMinorEnd,
+                        MMajS = momentMajorStart,
+                        MMajE = momentMajorEnd,
+                    };
 
                     RAMBeams.Add(RAMBeam);
                 }
@@ -177,6 +251,7 @@ namespace RAMSSWrapper
 
             #region Constructors
             List<string> ColumnNameRAM = new List<string>();
+            List<string> ColumnStoryRAM = new List<string>();
             List<double> ColumnRotationRAM = new List<double>();
             List<int> ColumnSpliceRAM = new List<int>();
             List<int> ColumnIDRAM = new List<int>();
@@ -199,6 +274,7 @@ namespace RAMSSWrapper
 
             //New List Constructors
             List<string> ColumnNameRAMRevised = new List<string>();
+            List<string> ColumnStoryRAMRevised = new List<string>();
             List<double> ColumnRotationRAMRevised = new List<double>();
             List<double> ColumnxSRAMRevised = new List<double>();
             List<double> ColumnySRAMRevised = new List<double>();
@@ -278,6 +354,8 @@ namespace RAMSSWrapper
 
                     //Check if this is a splice Level
                     ColumnSpliceRAM.Add(Icolumn.bSpliceLevel);
+
+                    ColumnStoryRAM.Add(strStoryID);
                 }
             }
 
@@ -332,6 +410,8 @@ namespace RAMSSWrapper
                                     ColumnxERAMRevised.Add(EndX);
                                     ColumnyERAMRevised.Add(EndY);
                                     ColumnzERAMRevised.Add(EndZ);
+
+                                    ColumnStoryRAMRevised.Add(ColumnStoryRAM[i]);
                                     ColumnNameRAMRevised.Add(ColumnNameRAM[i]);
                                     ColumnRotationRAMRevised.Add(ColumnRotationRAM[i]);
                                     IndexSplice.Add(j);
@@ -352,6 +432,7 @@ namespace RAMSSWrapper
                             ColumnxERAMRevised.Add(EndX);
                             ColumnyERAMRevised.Add(EndY);
                             ColumnzERAMRevised.Add(EndZ);
+                            ColumnStoryRAMRevised.Add(ColumnStoryRAM[i]);
                             ColumnNameRAMRevised.Add(ColumnNameRAM[i]);
                             ColumnRotationRAMRevised.Add(ColumnRotationRAM[i]);
                         }
@@ -367,6 +448,7 @@ namespace RAMSSWrapper
                     ColumnxERAMRevised.Add(ColumnxERAM[i]);
                     ColumnyERAMRevised.Add(ColumnyERAM[i]);
                     ColumnzERAMRevised.Add(ColumnzERAM[i]);
+                    ColumnStoryRAMRevised.Add(ColumnStoryRAM[i]);
                     ColumnNameRAMRevised.Add(ColumnNameRAM[i]);
                     ColumnRotationRAMRevised.Add(ColumnRotationRAM[i]);
                     IndexSplice.Add(i);
@@ -384,7 +466,8 @@ namespace RAMSSWrapper
                     y = (ColumnySRAMRevised[i] + ColumnyERAMRevised[i]) * (0.5),
                     z = (ColumnzSRAMRevised[i] + ColumnzERAMRevised[i]) * (0.5),
                     name = ColumnNameRAMRevised[i],
-                    rotation = ColumnRotationRAMRevised[i]
+                    rotation = ColumnRotationRAMRevised[i],
+                    story = ColumnStoryRAMRevised[i],
                 };
                 RAMColumns.Add(RAMColumn);
             }
@@ -508,6 +591,7 @@ namespace RAMSSWrapper
                         y = (StartPointB.dYLoc + EndPointB.dYLoc) / (2 * 12),
                         z = (StartPointB.dZLoc + EndPointB.dZLoc) / (2 * 12),
                         name = IverticalBrace.strSectionLabel,
+                        story = strStoryID
                     };
 
                     RAMVBs.Add(RAMBeam);

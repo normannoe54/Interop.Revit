@@ -11,11 +11,24 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI.Selection;
 using RAMSSWrapper;
+using System.Runtime.InteropServices;
+using Autodesk.Windows;
 
 namespace QAQCRAM
 {
     public partial class QAQCEdit : System.Windows.Forms.Form
     {
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+
+        /// <summary>
+        /// Move the window associated with the passed 
+        /// handle to the front.
+        /// </summary>
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
         #region public methods -- DO I NEED TO REF THE DOC?
         public UIDocument uidoc { get; set; }
         public Document doc { get; set; }
@@ -47,6 +60,7 @@ namespace QAQCRAM
             m_HandlerUpdate = HandlerUpdate;
             m_EventIgnore = EventIgnore;
             m_HandlerIgnore = HandlerIgnore;
+            progressBar1.Visible = false;
 
         }
 
@@ -58,6 +72,7 @@ namespace QAQCRAM
         private void QAQCEdit_Load(object sender,EventArgs e)
         {
             UpdateTable();
+            progressBar1.Visible = false;
         }
 
         #endregion
@@ -81,17 +96,27 @@ namespace QAQCRAM
         private void UpdateButton_Click(object sender, EventArgs e)
         {
             m_EventUpdate.Raise();
+
+            progressBar1.Visible = true;
+            //Maximum number is selected
+            progressBar1.Maximum = LVDataList.SelectedItems.Count;
         }
 
         //Ignore the elements
         private void IgnoreButton_Click(object sender, EventArgs e)
         {
             m_EventIgnore.Raise();
+
+            progressBar1.Visible = true;
+            //Maximum number is selected
+            progressBar1.Maximum = LVDataList.SelectedItems.Count;
         }
 
         private void HighlightRow_Click(object sender,EventArgs e)
         {
             m_EventHighlight.Raise();
+
+            SetForegroundWindow(ComponentManager.ApplicationWindow);         
         }
         #endregion
 
@@ -170,6 +195,11 @@ namespace QAQCRAM
 
         #region private update method
 
+        public void updateProgressBar(int progress)
+        {
+            progressBar1.Increment(progress);
+        }
+
         /// <summary>
         /// Initiate public methods when userform loads
         /// </summary>
@@ -177,12 +207,13 @@ namespace QAQCRAM
         /// <param name="e"></param>
         public void UpdateTable()
         {
+            LVDataList.HideSelection = false;
             LVDataList.Items.Clear();
             //Retrieve errorneous columns
             List<EditDataModel> Columns = EditDataCollect.RecordColumnElements(doc);
             foreach (EditDataModel Column in Columns)
             {
-                var row = new string[] { Column.elementtype, Column.elementId, Column.name, Column.concern, Column.RevitValue, Column.RAMValue };
+                var row = new string[] { Column.elementtype, Column.elementId, Column.name, Column.concern, Column.RevitValue, Column.RAMValue, Column.RAMStory };
                 var lvi = new ListViewItem(row);
                 LVDataList.Items.Add(lvi);
             }
@@ -191,7 +222,7 @@ namespace QAQCRAM
             List<EditDataModel> Beams = EditDataCollect.RecordBeamElements(doc);
             foreach (EditDataModel Beam in Beams)
             {
-                var row = new string[] { Beam.elementtype, Beam.elementId, Beam.name, Beam.concern, Beam.RevitValue, Beam.RAMValue };
+                var row = new string[] { Beam.elementtype, Beam.elementId, Beam.name, Beam.concern, Beam.RevitValue, Beam.RAMValue, Beam.RAMStory };
                 var lvi = new ListViewItem(row);
                 LVDataList.Items.Add(lvi);
             }
@@ -200,7 +231,7 @@ namespace QAQCRAM
             List<EditDataModel> VBs = EditDataCollect.RecordVBElements(doc);
             foreach (EditDataModel VB in VBs)
             {
-                var row = new string[] { VB.elementtype, VB.elementId, VB.name, VB.concern, VB.RevitValue, VB.RAMValue };
+                var row = new string[] { VB.elementtype, VB.elementId, VB.name, VB.concern, VB.RevitValue, VB.RAMValue, VB.RAMStory };
                 var lvi = new ListViewItem(row);
                 LVDataList.Items.Add(lvi);
             }
@@ -227,6 +258,10 @@ namespace QAQCRAM
                 }
 
             }
+
+            //Reset
+            progressBar1.Value = 0;
+            progressBar1.Visible = false;
         }
 
         #endregion

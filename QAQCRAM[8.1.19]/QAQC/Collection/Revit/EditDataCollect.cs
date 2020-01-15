@@ -44,7 +44,9 @@ namespace QAQCRAM
                     //If column size is the issue
                     if (param == "Flag.ColumnSize")
                     {
-                        if((ColumnElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        Parameter colparam = ColumnElement.LookupParameter(param);
+                        string colparamval = colparam.AsString();
+                        if (colparamval?.ToUpper() == "FALSE")
                         {
                             //Define EditDataModel
                             var Column = new EditDataModel
@@ -55,17 +57,21 @@ namespace QAQCRAM
                                 concern = "Size",
                                 RevitValue = ColumnElement.Name,
                                 RAMValue = ColumnElement.LookupParameter("RAM.ColumnSize").AsString(),
-
+                                RAMStory = ColumnElement.LookupParameter("RAM.ColStory").AsString(),
                             };
 
                             Columns.Add(Column);
                         }
+
                     }
 
                     //If flag orient is the parameter
                     if (param == "Flag.ColumnOrient")
                     {
-                        if ((ColumnElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        Parameter colparam = ColumnElement.LookupParameter(param);
+                        string colparamval = colparam.AsString();
+
+                        if ((colparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Column = new EditDataModel
@@ -76,11 +82,13 @@ namespace QAQCRAM
                                 concern = "Rotation",
                                 RevitValue = ColumnData.ColumnRotation(ColumnElement).ToString(),
                                 RAMValue = ColumnElement.LookupParameter("RAM.ColumnOrient").AsString(),
+                                RAMStory = ColumnElement.LookupParameter("RAM.ColStory").AsString(),
 
                             };
 
                             Columns.Add(Column);
                         }
+
                     }
                 }
             }
@@ -118,10 +126,14 @@ namespace QAQCRAM
             {
                 foreach (string param in FlagParameterNames)
                 {
+
                     //If column size is the issue
                     if (param == "Flag.BeamSize")
                     {
-                        if ((BeamElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        Parameter beamparam = BeamElement.LookupParameter(param);
+                        string beamparamval = beamparam.AsString();
+
+                        if ((beamparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel
@@ -132,18 +144,22 @@ namespace QAQCRAM
                                 concern = "Size",
                                 RevitValue = BeamElement.Name,
                                 RAMValue = BeamElement.LookupParameter("RAM.BeamSize").AsString(),
+                                RAMStory = BeamElement.LookupParameter("RAM.BeamStory").AsString(),
 
                             };
 
                             Beams.Add(Beam);
                         }
+
                     }
 
                     //If column size is the issue
                     if (param == "Flag.Camber")
                     {
+                        Parameter beamparam = BeamElement.LookupParameter(param);
+                        string beamparamval = beamparam.AsString();
 
-                        if ((BeamElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        if ((beamparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel
@@ -154,17 +170,22 @@ namespace QAQCRAM
                                 concern = "Camber",
                                 RevitValue = BeamElement.get_Parameter(BuiltInParameter.STRUCTURAL_CAMBER).AsString(),
                                 RAMValue = BeamElement.LookupParameter("RAM.Camber").AsString(),
+                                RAMStory = BeamElement.LookupParameter("RAM.BeamStory").AsString(),
 
                             };
 
                             Beams.Add(Beam);
                         }
+
                     }
 
                     //If column size is the issue
                     if (param == "Flag.Studs")
                     {
-                        if ((BeamElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        Parameter beamparam = BeamElement.LookupParameter(param);
+                        string beamparamval = beamparam.AsString();
+
+                        if ((beamparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel
@@ -175,11 +196,13 @@ namespace QAQCRAM
                                 concern = "Studs",
                                 RevitValue = BeamElement.get_Parameter(BuiltInParameter.STRUCTURAL_NUMBER_OF_STUDS).AsString(),
                                 RAMValue = BeamElement.LookupParameter("RAM.Studs").AsString(),
+                                RAMStory = BeamElement.LookupParameter("RAM.BeamStory").AsString(),
 
                             };
 
                             Beams.Add(Beam);
                         }
+
                     }
                 }
             }
@@ -220,7 +243,10 @@ namespace QAQCRAM
                     //If column size is the issue
                     if (param == "Flag.VBSize")
                     {
-                        if ((VBElement.LookupParameter(param).AsString().ToUpper() == "FALSE"))
+                        Parameter vbparam = VBElement.LookupParameter(param);
+                        string vbparamval = vbparam.AsString();
+
+                        if ((vbparamval?.ToUpper() == "FALSE"))
                         {
                             //Define EditDataModel
                             var Beam = new EditDataModel
@@ -231,6 +257,7 @@ namespace QAQCRAM
                                 concern = "Size",
                                 RevitValue = VBElement.Name,
                                 RAMValue = VBElement.LookupParameter("RAM.VBSize").AsString(),
+                                RAMStory = VBElement.LookupParameter("RAM.VBStory").AsString(),
 
                             };
 
@@ -246,4 +273,3 @@ namespace QAQCRAM
     }
 }
 
-       

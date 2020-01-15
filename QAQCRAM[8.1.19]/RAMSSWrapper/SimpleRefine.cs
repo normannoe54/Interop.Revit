@@ -50,7 +50,16 @@ namespace RAMSSWrapper
                     }
                 }
 
-                fracvalue = SecondNumber + " " + Numerator + "/" + Denominator;
+                //No leading 0s
+                if (SecondNumber != 0)
+                {
+                    fracvalue = SecondNumber + " " + Numerator + "/" + Denominator;
+                }
+                else
+                {
+                    fracvalue = Numerator + "/" + Denominator;
+                }
+
             }
             return fracvalue;
         }

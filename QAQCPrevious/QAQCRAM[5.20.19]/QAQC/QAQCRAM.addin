@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Interoperability</Name>
+    <Description>Check Revit Model against RAM SS Model</Description>
+    <Assembly>QAQCRAM.dll</Assembly>
+    <FullClassName>QAQCRAM.Main</FullClassName>
+    <ClientId>44ebe874-a2c4-42b8-afe4-71a2539339a4</ClientId>
+    <VendorId>com.gmail@normnoe54</VendorId>
+    <VendorDescription>Norman Noe Applications</VendorDescription>
+  </AddIn>
+</RevitAddIns>

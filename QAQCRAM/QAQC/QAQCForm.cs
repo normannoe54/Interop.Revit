@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using Autodesk.Revit.UI;
+using System.Collections.Generic;
 #endregion
 
 namespace QAQCRAM
@@ -26,14 +27,19 @@ namespace QAQCRAM
         /// </summary>
         /// <param name="Event"></param>
         /// <param name="handler"></param>
-        public QAQCForm(ExternalEvent EventRun, ExternalEventRun HandlerRun, ExternalEvent EventSelection, ExternalEventSelection HandlerSelection)
-        {
-            
+        public QAQCForm(ExternalEvent EventRun, ExternalEventRun HandlerRun, ExternalEvent EventSelection, ExternalEventSelection HandlerSelection, List<string> SelectionSets)
+        {         
             InitializeComponent();
             m_EventRun = EventRun;
             m_HandlerRun = HandlerRun;
             m_EventSelection = EventSelection;
             m_HandlerSelection = HandlerSelection;
+
+            //Add items to combobox
+            foreach(string item in SelectionSets)
+            {
+                SelectionSetCombo.Items.Add(item);
+            }
 
         }
 
@@ -48,7 +54,7 @@ namespace QAQCRAM
         /// <summary>
         /// UserForm clicked
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender"></param>Wi
         /// <param name="e"></param>
         private void QAQCForm_Click(object sender, EventArgs e)
         {

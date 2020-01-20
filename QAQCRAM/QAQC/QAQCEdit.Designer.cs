@@ -43,6 +43,9 @@
             this.UpdateButton = new System.Windows.Forms.Button();
             this.IgnoreButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.button1 = new System.Windows.Forms.Button();
+            this.SearchBar = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label4
@@ -165,7 +168,7 @@
             this.UpdateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UpdateButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UpdateButton.ForeColor = System.Drawing.Color.White;
-            this.UpdateButton.Location = new System.Drawing.Point(170, 529);
+            this.UpdateButton.Location = new System.Drawing.Point(144, 588);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(115, 39);
             this.UpdateButton.TabIndex = 22;
@@ -181,7 +184,7 @@
             this.IgnoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.IgnoreButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IgnoreButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
-            this.IgnoreButton.Location = new System.Drawing.Point(372, 529);
+            this.IgnoreButton.Location = new System.Drawing.Point(415, 588);
             this.IgnoreButton.Name = "IgnoreButton";
             this.IgnoreButton.Size = new System.Drawing.Size(115, 39);
             this.IgnoreButton.TabIndex = 23;
@@ -191,17 +194,54 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 480);
+            this.progressBar1.Location = new System.Drawing.Point(12, 536);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(645, 23);
             this.progressBar1.TabIndex = 24;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(0)))));
+            this.button1.Location = new System.Drawing.Point(280, 588);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(115, 39);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "ISOLATE";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Isolate_Click);
+            // 
+            // SearchBar
+            // 
+            this.SearchBar.Location = new System.Drawing.Point(72, 488);
+            this.SearchBar.Name = "SearchBar";
+            this.SearchBar.Size = new System.Drawing.Size(148, 20);
+            this.SearchBar.TabIndex = 26;
+            this.SearchBar.TextChanged += new System.EventHandler(this.SearchBar_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(12, 491);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "SEARCH:";
             // 
             // QAQCEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.ClientSize = new System.Drawing.Size(669, 598);
+            this.ClientSize = new System.Drawing.Size(669, 649);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SearchBar);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.IgnoreButton);
             this.Controls.Add(this.UpdateButton);
@@ -238,5 +278,8 @@
         public System.Windows.Forms.ListView LVDataList;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ColumnHeader RAMStoryLV;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox SearchBar;
+        private System.Windows.Forms.Label label1;
     }
 }

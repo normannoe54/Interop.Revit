@@ -93,10 +93,61 @@ namespace QAQCRAM
             Parameters.CreateSharedParameters(VBParamaterNames, VBcatset, doc, app, QAQCgroup);
             #endregion
 
+            string selectionset = qaqcform.SelectionSetCombo.Text;
+
+            FilteredElementCollector collector1 = new FilteredElementCollector(doc);
+            ICollection<Element> typecollection = collector1.OfClass(typeof(SelectionFilterElement)).ToElements();
+
+            IEnumerable<SelectionFilterElement> elems = from e in typecollection.Cast<SelectionFilterElement>()
+                                                        where (e.Name == selectionset)
+                                                        select e;
+
+            IList<Element> elements = new List<Element>();
+
+            //Selection Set not found
+            if (selectionset != "")
+            {
+                SelectionFilterElement sef = elems.FirstOrDefault();
+
+                ICollection<ElementId> SelectionSetElemsID = sef.GetElementIds();
+
+                elements = new List<Element>();
+
+                //Get Elements
+                foreach (ElementId elemID in SelectionSetElemsID)
+                {
+                    elements.Add(doc.GetElement(elemID));
+                }
+
+            }
+
+
+
             #region Collect Revit Beam Elements [Revit]
 
             //Retrieve beams
-            IList<Element> BeamElements = RevitCollectElement.SFElements(doc);
+            IList<Element> BeamElementsFinal = RevitCollectElement.SFElements(doc);          
+
+            List<Element> BeamElements = new List<Element>();
+            
+            foreach (Element Bmelement in BeamElementsFinal)
+            {
+                bool foundbm = false;
+                foreach(Element el in elements)
+                {
+                    if (el.Id == Bmelement.Id)
+                    {
+                        foundbm = true;
+                        break;
+                        //Matches                       
+                    }
+                }
+
+                if (!foundbm)
+                {
+                    BeamElements.Add(Bmelement);
+                }
+            }
 
             //Initialize Beam Model
             List<BeamDataModel> RevitBeams = new List<BeamDataModel>();          
@@ -121,8 +172,28 @@ namespace QAQCRAM
 
             #region Collect Column Elements [Revit]
 
-            //Retrieve Columns
-            IList<Element> ColumnElements = RevitCollectElement.ColElements(doc);
+            IList<Element> ColumnElementsFinal = RevitCollectElement.ColElements(doc);
+
+            List<Element> ColumnElements = new List<Element>();
+
+            foreach (Element Colelement in ColumnElementsFinal)
+            {
+                bool foundcol = false;
+                foreach (Element el in elements)
+                {
+                    if (el.Id == Colelement.Id)
+                    {
+                        foundcol = true;
+                        break;
+                        //Matches                       
+                    }
+                }
+
+                if (!foundcol)
+                {
+                    ColumnElements.Add(Colelement);
+                }
+            }
 
             //Initialize Beam Model
             List<ColumnDataModel> RevitColumns = new List<ColumnDataModel>();
@@ -145,8 +216,28 @@ namespace QAQCRAM
 
             #region Collect Structural Braces Elements [Revit]
 
-            //Retrieve VB
-            IList<Element> VBElements = RevitCollectElement.VBElements(doc);
+            IList<Element> VBElementsFinal = RevitCollectElement.VBElements(doc);
+
+            List<Element> VBElements = new List<Element>();
+
+            foreach (Element VBelement in VBElementsFinal)
+            {
+                bool foundvb = false;
+                foreach (Element el in elements)
+                {
+                    if (el.Id == VBelement.Id)
+                    {
+                        foundvb = true;
+                        break;
+                        //Matches                       
+                    }
+                }
+
+                if (!foundvb)
+                {
+                    VBElements.Add(VBelement);
+                }
+            }
 
             //Initialize VB Model
             List<VBDataModel> RevitVBs = new List<VBDataModel>();
@@ -534,8 +625,14 @@ namespace QAQCRAM
                             param.Set("False");
                         }
 
+                        int mrbval = 0;
+                        bool test = Int32.TryParse(MatchedRevitBeam.studs, out mrbval);
+
+                        int RAMbmval = 0;
+                        bool test1 = Int32.TryParse(MatchedRevitBeam.studs, out RAMbmval);
+
                         //Studs Flag
-                        if (MatchedRevitBeam.studs.ToUpper() == RAMbeam.studs.ToUpper())
+                        if ((MatchedRevitBeam.studs.ToUpper() == RAMbeam.studs.ToUpper())|| (mrbval > RAMbmval && test && test1))
                         {
                             param = BeamElements[MatchI].LookupParameter(SFParamaterNames[4]);
                             param.Set("True");
@@ -545,8 +642,44 @@ namespace QAQCRAM
                             param = BeamElements[MatchI].LookupParameter(SFParamaterNames[4]);
                             param.Set("False");
                         }
+
+                        bool indicator1 = false;
+
+                        //Only consider this is both W
+                        if ((MatchedRevitBeam.name.ToUpper())[0].Equals('W') && (RAMbeam.name.ToUpper())[0].Equals('W'))
+                        {
+                            try
+                            {
+                                int locmrb = MatchedRevitBeam.name.ToUpper().LastIndexOf("X") + 1;
+                                string weightmrb = MatchedRevitBeam.name.Substring(locmrb, MatchedRevitBeam.name.Length - locmrb);
+
+                                int locRAMb = RAMbeam.name.ToUpper().LastIndexOf("X") + 1;
+                                string weightRAMb = RAMbeam.name.Substring(locRAMb, RAMbeam.name.Length - locRAMb);
+
+                                int revitweight = 0;
+                                int ramweight = 0;
+
+                                bool testwt1 = Int32.TryParse(weightmrb, out revitweight);
+                                bool testwt2 = Int32.TryParse(weightRAMb, out ramweight);
+
+                                if (testwt1 && testwt2 && revitweight > ramweight)
+                                {
+                                    indicator1 = true;
+                                }
+                                else
+                                {
+                                    indicator1 = false;
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+
+                        }
                         //Size Flag
-                        if (MatchedRevitBeam.name.ToUpper() == RAMbeam.name.ToUpper())
+
+                        if (MatchedRevitBeam.name.ToUpper() == RAMbeam.name.ToUpper() || indicator1)
                         {
                             param = BeamElements[MatchI].LookupParameter(SFParamaterNames[5]);
                             param.Set("True");
@@ -890,7 +1023,7 @@ namespace QAQCRAM
 
 #endregion
 
-#region Beam Filters Flags
+                    #region Beam Filters Flags
                         //All the beam filters
                         for (int i = 0; i < (FilterNamesBeams.Count); i++)
                         {
@@ -949,7 +1082,7 @@ namespace QAQCRAM
 #endregion
 
                     //Change Category to Column
-#region Accetpable Column Filter
+                    #region Accetpable Column Filter
                     category.Clear();
                     category.Add(new ElementId(BuiltInCategory.OST_StructuralColumns));
 
@@ -1012,7 +1145,7 @@ namespace QAQCRAM
 
 #endregion
 
-#region Column Filters Flags
+                    #region Column Filters Flags
                         //All the column filters
                         for (int i = 0; i < (FilterNamesColumns.Count); i++)
                         {
@@ -1072,7 +1205,7 @@ namespace QAQCRAM
 #endregion
 
                     //Change Category to VB
-#region Acceptable VB Filter
+                    #region Acceptable VB Filter
 
                     //Create Acceptable VB Filter
 
@@ -1138,7 +1271,7 @@ namespace QAQCRAM
                         filterRules.Clear();
 #endregion
 
-#region VB Filters Flags
+                    #region VB Filters Flags
                         //All the beam filters
                         for (int i = 0; i < (FilterNamesVBs.Count); i++)
                         {

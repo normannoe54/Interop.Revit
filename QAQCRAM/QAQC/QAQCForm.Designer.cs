@@ -59,6 +59,8 @@
             this.BeamToggle = new System.Windows.Forms.CheckBox();
             this.ColumnToggle = new System.Windows.Forms.CheckBox();
             this.VBToggle = new System.Windows.Forms.CheckBox();
+            this.SelectionSetCombo = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.ElementIDPanel.SuspendLayout();
             this.RotationPanel.SuspendLayout();
             this.TolerancePanel.SuspendLayout();
@@ -103,7 +105,7 @@
             this.RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RunButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RunButton.ForeColor = System.Drawing.Color.White;
-            this.RunButton.Location = new System.Drawing.Point(36, 546);
+            this.RunButton.Location = new System.Drawing.Point(35, 593);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(250, 35);
             this.RunButton.TabIndex = 6;
@@ -414,12 +416,35 @@
             this.VBToggle.Text = "    Consider RAM Vertical Braces";
             this.VBToggle.UseVisualStyleBackColor = true;
             // 
+            // SelectionSetCombo
+            // 
+            this.SelectionSetCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SelectionSetCombo.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.SelectionSetCombo.FormattingEnabled = true;
+            this.SelectionSetCombo.Location = new System.Drawing.Point(41, 553);
+            this.SelectionSetCombo.Name = "SelectionSetCombo";
+            this.SelectionSetCombo.Size = new System.Drawing.Size(247, 25);
+            this.SelectionSetCombo.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(78, 524);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 17);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "Exclude Selection Set?";
+            // 
             // QAQCForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.ClientSize = new System.Drawing.Size(331, 600);
+            this.ClientSize = new System.Drawing.Size(331, 650);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SelectionSetCombo);
             this.Controls.Add(this.VBToggle);
             this.Controls.Add(this.ColumnToggle);
             this.Controls.Add(this.BeamToggle);
@@ -497,5 +522,7 @@
         public System.Windows.Forms.CheckBox BeamToggle;
         public System.Windows.Forms.CheckBox ColumnToggle;
         public System.Windows.Forms.CheckBox VBToggle;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ComboBox SelectionSetCombo;
     }
 }

@@ -1,8 +1,10 @@
 ﻿#region Namespaces
 using System;
+using System.Collections.Generic;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using System.Linq;
 #endregion
 
 namespace QAQCRAM
@@ -52,8 +54,15 @@ namespace QAQCRAM
 
             try
             {
+                //Get all Selection Sets
+
+                FilteredElementCollector collector = new FilteredElementCollector(doc);
+                ICollection<Element> typecollection = collector.OfClass(typeof(SelectionFilterElement)).ToElements();
+
+                List<string> selectionsetname = typecollection.Select(x => x.Name).ToList();
+
                 //Initiate userform with event handler
-                QAQCForm myQAQCForm = new QAQCForm(EventRun, HandlerRun,EventSelection,HandlerSelection);
+                QAQCForm myQAQCForm = new QAQCForm(EventRun, HandlerRun,EventSelection,HandlerSelection, selectionsetname);
                 HandlerRun.qaqcform = myQAQCForm;
                 HandlerSelection.qaqcform = myQAQCForm;
                 myQAQCForm.Show();

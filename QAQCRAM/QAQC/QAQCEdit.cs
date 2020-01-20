@@ -18,6 +18,8 @@ namespace QAQCRAM
 {
     public partial class QAQCEdit : System.Windows.Forms.Form
     {
+        // keep list of listview items 
+        List<EditDataModel> Items = new List<EditDataModel>();
 
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -211,6 +213,7 @@ namespace QAQCRAM
             LVDataList.Items.Clear();
             //Retrieve errorneous columns
             List<EditDataModel> Columns = EditDataCollect.RecordColumnElements(doc);
+            Items = Columns;
             foreach (EditDataModel Column in Columns)
             {
                 var row = new string[] { Column.elementtype, Column.elementId, Column.name, Column.concern, Column.RevitValue, Column.RAMValue, Column.RAMStory };
@@ -220,6 +223,7 @@ namespace QAQCRAM
 
             //Retrieve erroneous beams
             List<EditDataModel> Beams = EditDataCollect.RecordBeamElements(doc);
+            Items.AddRange(Beams);
             foreach (EditDataModel Beam in Beams)
             {
                 var row = new string[] { Beam.elementtype, Beam.elementId, Beam.name, Beam.concern, Beam.RevitValue, Beam.RAMValue, Beam.RAMStory };
@@ -229,13 +233,49 @@ namespace QAQCRAM
 
             //Retrieve erroneous braces
             List<EditDataModel> VBs = EditDataCollect.RecordVBElements(doc);
+            Items.AddRange(VBs);
             foreach (EditDataModel VB in VBs)
             {
                 var row = new string[] { VB.elementtype, VB.elementId, VB.name, VB.concern, VB.RevitValue, VB.RAMValue, VB.RAMStory };
                 var lvi = new ListViewItem(row);
                 LVDataList.Items.Add(lvi);
             }
+          
+            UpdateColors();
 
+            //Reset
+            progressBar1.Value = 0;
+            progressBar1.Visible = false;
+        }
+
+        #endregion
+
+        private void SearchBar_TextChanged(object sender, EventArgs e)
+        {
+            LVDataList.Items.Clear();
+
+            foreach(EditDataModel items in Items)
+            {
+
+                if ((items.concern?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.elementId?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.elementtype?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.name?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.RAMStory?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.RAMValue?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault()
+                    || (items.RevitValue?.ToLower().Contains(SearchBar.Text.ToLower())).GetValueOrDefault())
+                {
+                    var row = new string[] { items.elementtype, items.elementId, items.name, items.concern, items.RevitValue, items.RAMValue, items.RAMStory };
+                    var lvi = new ListViewItem(row);
+                    LVDataList.Items.Add(lvi);
+                }
+            }
+
+            UpdateColors();
+        }
+
+        private void UpdateColors()
+        {
             //Color
             //change colors in listview
             for (int i = 0; i < LVDataList.Items.Count; i++)
@@ -258,12 +298,35 @@ namespace QAQCRAM
                 }
 
             }
+        }
+
+        private void Isolate_Click(object sender, EventArgs e)
+        {
+            SearchBar.Text = "";
+            LVDataList.Items.Clear();
+
+            //Retrieve erroneous beams
+            List<EditDataModel> Beams = EditDataCollect.RecordSelectedBeamElements(uidoc);
+
+            if (!Beams.Any())
+            {
+                UpdateTable();
+                return;
+            }
+
+            Items.AddRange(Beams);
+            foreach (EditDataModel Beam in Beams)
+            {
+                var row = new string[] { Beam.elementtype, Beam.elementId, Beam.name, Beam.concern, Beam.RevitValue, Beam.RAMValue, Beam.RAMStory };
+                var lvi = new ListViewItem(row);
+                LVDataList.Items.Add(lvi);
+            }
+
+            UpdateColors();
 
             //Reset
             progressBar1.Value = 0;
             progressBar1.Visible = false;
         }
-
-        #endregion
     }
 }

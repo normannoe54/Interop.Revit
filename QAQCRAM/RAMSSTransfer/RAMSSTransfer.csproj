@@ -61,12 +61,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RAMSSWrapper\RAMSSWrapper.csproj">
-      <Project>{e20f0160-97f0-4fdc-9660-a4bf055337af}</Project>
-      <Name>RAMSSWrapper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="RAMDATAACCESSLib">
       <Guid>{045F59D6-DBB7-4A8C-97ED-9BA47C4C5EC9}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -76,6 +70,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RAMSSWrapper\RAMSSWrapper.csproj">
+      <Project>{e20f0160-97f0-4fdc-9660-a4bf055337af}</Project>
+      <Name>RAMSSWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

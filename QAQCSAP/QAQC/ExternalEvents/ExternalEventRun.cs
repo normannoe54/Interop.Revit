@@ -377,7 +377,7 @@ namespace QAQCSAP
 
             #region Create New 3D View ---FIX FILTER NAMES.
             //View Name
-            string ViewName = "Nate Controlled ETABS QAQC";
+            string ViewName = "LATERAL COLUMNS QAQC SAP";
 
             //Initiate 3D view check
             bool exist = false;

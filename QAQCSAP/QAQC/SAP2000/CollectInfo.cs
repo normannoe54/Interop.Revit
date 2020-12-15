@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using ETABSv1;
+using SAP2000v1;
 #endregion
 
 namespace QAQCSAP
@@ -24,7 +24,7 @@ namespace QAQCSAP
             cOAPI SapObject =null;
             try
             {
-                SapObject = (cOAPI)System.Runtime.InteropServices.Marshal.GetActiveObject("CSI.ETABS.API.ETABSObject");
+                SapObject = (cOAPI)System.Runtime.InteropServices.Marshal.GetActiveObject("CSI.SAP2000.API.SapObject");
 
             }
             catch
@@ -38,7 +38,7 @@ namespace QAQCSAP
                 
                 myHelper = new Helper();
                 
-                string pathToETABS = @"C:\Program Files\Computers and Structures\ETABS 18\ETABS.exe";
+                string pathToETABS = @"C:\Program Files\Computers and Structures\SAP2000 21\SAP2000.exe";
                 SapObject = myHelper.CreateObject(pathToETABS);
 
                 //start SAP2000 application
@@ -96,30 +96,39 @@ namespace QAQCSAP
             double z2 = 0;
             string PropName = "";
             string SAuto = "";
+            int NumberGroups = 0;
+            string[] Groups = null;
 
             //Collect data for output
             foreach (string elementName in ElementName)
             {
-                //Retrieve points and section
-                ret = SapModel.FrameObj.GetPoints(elementName, ref point1, ref point2);
-                ret = SapModel.FrameObj.GetSection(elementName, ref PropName, ref SAuto);
+                ret = SapModel.FrameObj.GetGroupAssign(elementName, ref NumberGroups, ref Groups);
 
-                //Get Point Locations
-                ret = SapModel.PointObj.GetCoordCartesian(point1, ref x1, ref y1, ref z1);
-                ret = SapModel.PointObj.GetCoordCartesian(point2, ref x2, ref y2, ref z2);
-
-                //Create beammodels
-                var SAPBeam = new BeamDataModel
+                foreach(string group in Groups)
                 {
-                    x = (x1 + x2) / (2 * factor),
-                    y = (y1 + y2) / (2 * factor),
-                    z = (z1 + z2) / (2 * factor),
-                    name = PropName,
-                    ID = elementName,
-                };
+                    if (group == "Lateral Columns")
+                    {
+                        //Retrieve points and section
+                        ret = SapModel.FrameObj.GetPoints(elementName, ref point1, ref point2);
+                        ret = SapModel.FrameObj.GetSection(elementName, ref PropName, ref SAuto);
 
-                SAPBeams.Add(SAPBeam);
+                        //Get Point Locations
+                        ret = SapModel.PointObj.GetCoordCartesian(point1, ref x1, ref y1, ref z1);
+                        ret = SapModel.PointObj.GetCoordCartesian(point2, ref x2, ref y2, ref z2);
 
+                        //Create beammodels
+                        var SAPBeam = new BeamDataModel
+                        {
+                            x = (x1 + x2) / (2 * factor),
+                            y = (y1 + y2) / (2 * factor),
+                            z = (z1 + z2) / (2 * factor),
+                            name = PropName,
+                            ID = elementName,
+                        };
+
+                        SAPBeams.Add(SAPBeam);
+                    }
+                }            
             }
 
             //close SAP2000

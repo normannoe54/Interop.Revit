@@ -68,8 +68,8 @@ namespace QAQCSAP
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
             {
                 //Set the dialog box with the following constraints
-                ofd.DefaultExt = ".edb";
-                ofd.Filter = "ETABS File (*.edb)|*.edb";
+                ofd.DefaultExt = ".sdb";
+                ofd.Filter = "SAP2000 File (*.sdb)|*.sdb";
                 Nullable<bool> result = ofd.ShowDialog();
                 if (result == true)
                 {

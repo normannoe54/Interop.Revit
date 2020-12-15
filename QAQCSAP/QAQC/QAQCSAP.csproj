@@ -43,9 +43,6 @@
     <Reference Include="AdWindows">
       <HintPath>C:\Program Files\Autodesk\Revit 2019\AdWindows.dll</HintPath>
     </Reference>
-    <Reference Include="ETABSv1">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Computers and Structures\ETABS 18\ETABSv1.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -56,6 +53,9 @@
     <Reference Include="RevitAPIUI">
       <HintPath>$(ProgramW6432)\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="SAP2000v1">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Computers and Structures\SAP2000 21\SAP2000v1.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

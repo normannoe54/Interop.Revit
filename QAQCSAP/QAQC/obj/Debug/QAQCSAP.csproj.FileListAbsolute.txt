@@ -76,4 +76,4 @@ C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.cspr
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.csproj.CopyComplete
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.dll
 C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\obj\Debug\QAQCSAP.pdb
-C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\ETABSv1.dll
+C:\Users\nnoe\Documents\GitHub\Interop.Revit\QAQCSAP\QAQC\bin\Debug\SAP2000v1.dll

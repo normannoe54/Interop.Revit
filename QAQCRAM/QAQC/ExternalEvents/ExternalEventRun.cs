@@ -625,14 +625,15 @@ namespace QAQCRAM
                             param.Set("False");
                         }
 
-                        int mrbval = 0;
-                        bool test = Int32.TryParse(MatchedRevitBeam.studs, out mrbval);
+                        //int mrbval = 0;
+                        //bool test = Int32.TryParse(MatchedRevitBeam.studs, out mrbval);
 
-                        int RAMbmval = 0;
-                        bool test1 = Int32.TryParse(MatchedRevitBeam.studs, out RAMbmval);
+                        //int RAMbmval = 0;
+                        //bool test1 = Int32.TryParse(MatchedRevitBeam.studs, out RAMbmval);
 
                         //Studs Flag
-                        if ((MatchedRevitBeam.studs.ToUpper() == RAMbeam.studs.ToUpper())|| (mrbval > RAMbmval && test && test1))
+                        //if ((MatchedRevitBeam.studs.ToUpper() == RAMbeam.studs.ToUpper())|| (mrbval > RAMbmval && test && test1))
+                        if ((MatchedRevitBeam.studs.ToUpper() == RAMbeam.studs.ToUpper()))
                         {
                             param = BeamElements[MatchI].LookupParameter(SFParamaterNames[4]);
                             param.Set("True");
@@ -643,43 +644,44 @@ namespace QAQCRAM
                             param.Set("False");
                         }
 
-                        bool indicator1 = false;
+                        //bool indicator1 = false;
 
                         //Only consider this is both W
-                        if ((MatchedRevitBeam.name.ToUpper())[0].Equals('W') && (RAMbeam.name.ToUpper())[0].Equals('W'))
-                        {
-                            try
-                            {
-                                int locmrb = MatchedRevitBeam.name.ToUpper().LastIndexOf("X") + 1;
-                                string weightmrb = MatchedRevitBeam.name.Substring(locmrb, MatchedRevitBeam.name.Length - locmrb);
+                        //if ((MatchedRevitBeam.name.ToUpper())[0].Equals('W') && (RAMbeam.name.ToUpper())[0].Equals('W'))
+                        //{
+                        //    try
+                        //    {
+                        //        int locmrb = MatchedRevitBeam.name.ToUpper().LastIndexOf("X") + 1;
+                        //        string weightmrb = MatchedRevitBeam.name.Substring(locmrb, MatchedRevitBeam.name.Length - locmrb);
 
-                                int locRAMb = RAMbeam.name.ToUpper().LastIndexOf("X") + 1;
-                                string weightRAMb = RAMbeam.name.Substring(locRAMb, RAMbeam.name.Length - locRAMb);
+                        //        int locRAMb = RAMbeam.name.ToUpper().LastIndexOf("X") + 1;
+                        //        string weightRAMb = RAMbeam.name.Substring(locRAMb, RAMbeam.name.Length - locRAMb);
 
-                                int revitweight = 0;
-                                int ramweight = 0;
+                        //        int revitweight = 0;
+                        //        int ramweight = 0;
 
-                                bool testwt1 = Int32.TryParse(weightmrb, out revitweight);
-                                bool testwt2 = Int32.TryParse(weightRAMb, out ramweight);
+                        //        bool testwt1 = Int32.TryParse(weightmrb, out revitweight);
+                        //        bool testwt2 = Int32.TryParse(weightRAMb, out ramweight);
 
-                                if (testwt1 && testwt2 && revitweight > ramweight)
-                                {
-                                    indicator1 = true;
-                                }
-                                else
-                                {
-                                    indicator1 = false;
-                                }
-                            }
-                            catch
-                            {
+                        //        if (testwt1 && testwt2 && revitweight > ramweight)
+                        //        {
+                        //            indicator1 = true;
+                        //        }
+                        //        else
+                        //        {
+                        //            indicator1 = false;
+                        //        }
+                        //    }
+                        //    catch
+                        //    {
 
-                            }
+                        //    }
 
-                        }
+                        //}
                         //Size Flag
+                        //if (MatchedRevitBeam.name.ToUpper() == RAMbeam.name.ToUpper() || indicator1)
 
-                        if (MatchedRevitBeam.name.ToUpper() == RAMbeam.name.ToUpper() || indicator1)
+                        if (MatchedRevitBeam.name.ToUpper() == RAMbeam.name.ToUpper())                            
                         {
                             param = BeamElements[MatchI].LookupParameter(SFParamaterNames[5]);
                             param.Set("True");

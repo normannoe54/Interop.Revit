@@ -74,7 +74,7 @@
             this.RAMStoryText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RAMStoryText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RAMStoryText.ForeColor = System.Drawing.SystemColors.Window;
-            this.RAMStoryText.Location = new System.Drawing.Point(72, 196);
+            this.RAMStoryText.Location = new System.Drawing.Point(72, 237);
             this.RAMStoryText.Name = "RAMStoryText";
             this.RAMStoryText.Size = new System.Drawing.Size(213, 18);
             this.RAMStoryText.TabIndex = 3;
@@ -89,7 +89,7 @@
             this.FilenameText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.FilenameText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilenameText.ForeColor = System.Drawing.SystemColors.Window;
-            this.FilenameText.Location = new System.Drawing.Point(72, 105);
+            this.FilenameText.Location = new System.Drawing.Point(72, 146);
             this.FilenameText.Name = "FilenameText";
             this.FilenameText.ReadOnly = true;
             this.FilenameText.Size = new System.Drawing.Size(213, 18);
@@ -105,7 +105,7 @@
             this.RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RunButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RunButton.ForeColor = System.Drawing.Color.White;
-            this.RunButton.Location = new System.Drawing.Point(35, 593);
+            this.RunButton.Location = new System.Drawing.Point(38, 633);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(250, 35);
             this.RunButton.TabIndex = 6;
@@ -119,7 +119,7 @@
             this.ElementIDText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ElementIDText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ElementIDText.ForeColor = System.Drawing.SystemColors.Window;
-            this.ElementIDText.Location = new System.Drawing.Point(72, 327);
+            this.ElementIDText.Location = new System.Drawing.Point(72, 368);
             this.ElementIDText.Name = "ElementIDText";
             this.ElementIDText.ReadOnly = true;
             this.ElementIDText.Size = new System.Drawing.Size(213, 18);
@@ -133,7 +133,7 @@
             this.RAMIDText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RAMIDText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RAMIDText.ForeColor = System.Drawing.Color.White;
-            this.RAMIDText.Location = new System.Drawing.Point(72, 150);
+            this.RAMIDText.Location = new System.Drawing.Point(72, 191);
             this.RAMIDText.Name = "RAMIDText";
             this.RAMIDText.Size = new System.Drawing.Size(213, 18);
             this.RAMIDText.TabIndex = 4;
@@ -171,7 +171,7 @@
             // 
             this.ElementIDPanel.BackColor = System.Drawing.Color.White;
             this.ElementIDPanel.Controls.Add(this.panel1);
-            this.ElementIDPanel.Location = new System.Drawing.Point(35, 349);
+            this.ElementIDPanel.Location = new System.Drawing.Point(35, 390);
             this.ElementIDPanel.Name = "ElementIDPanel";
             this.ElementIDPanel.Size = new System.Drawing.Size(250, 1);
             this.ElementIDPanel.TabIndex = 11;
@@ -237,7 +237,7 @@
             this.OFDButton.FlatAppearance.BorderSize = 0;
             this.OFDButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OFDButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.OFDButton.Location = new System.Drawing.Point(38, 106);
+            this.OFDButton.Location = new System.Drawing.Point(38, 147);
             this.OFDButton.Name = "OFDButton";
             this.OFDButton.Size = new System.Drawing.Size(20, 17);
             this.OFDButton.TabIndex = 1;
@@ -250,7 +250,7 @@
             this.SelectElementButton.FlatAppearance.BorderSize = 0;
             this.SelectElementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SelectElementButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.SelectElementButton.Location = new System.Drawing.Point(39, 328);
+            this.SelectElementButton.Location = new System.Drawing.Point(39, 369);
             this.SelectElementButton.Name = "SelectElementButton";
             this.SelectElementButton.Size = new System.Drawing.Size(19, 19);
             this.SelectElementButton.TabIndex = 1;
@@ -263,7 +263,7 @@
             this.RotText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RotText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RotText.ForeColor = System.Drawing.SystemColors.Window;
-            this.RotText.Location = new System.Drawing.Point(72, 238);
+            this.RotText.Location = new System.Drawing.Point(72, 279);
             this.RotText.Name = "RotText";
             this.RotText.Size = new System.Drawing.Size(213, 18);
             this.RotText.TabIndex = 18;
@@ -276,7 +276,7 @@
             // 
             this.RotationPanel.BackColor = System.Drawing.Color.White;
             this.RotationPanel.Controls.Add(this.panel2);
-            this.RotationPanel.Location = new System.Drawing.Point(38, 258);
+            this.RotationPanel.Location = new System.Drawing.Point(38, 299);
             this.RotationPanel.Name = "RotationPanel";
             this.RotationPanel.Size = new System.Drawing.Size(250, 1);
             this.RotationPanel.TabIndex = 19;
@@ -295,7 +295,7 @@
             this.ToleranceText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ToleranceText.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToleranceText.ForeColor = System.Drawing.SystemColors.Window;
-            this.ToleranceText.Location = new System.Drawing.Point(72, 283);
+            this.ToleranceText.Location = new System.Drawing.Point(72, 324);
             this.ToleranceText.Name = "ToleranceText";
             this.ToleranceText.Size = new System.Drawing.Size(213, 18);
             this.ToleranceText.TabIndex = 20;
@@ -309,7 +309,7 @@
             // 
             this.TolerancePanel.BackColor = System.Drawing.Color.White;
             this.TolerancePanel.Controls.Add(this.panel4);
-            this.TolerancePanel.Location = new System.Drawing.Point(40, 303);
+            this.TolerancePanel.Location = new System.Drawing.Point(40, 344);
             this.TolerancePanel.Name = "TolerancePanel";
             this.TolerancePanel.Size = new System.Drawing.Size(250, 1);
             this.TolerancePanel.TabIndex = 21;
@@ -327,7 +327,7 @@
             this.ClearToggle.AutoSize = true;
             this.ClearToggle.Font = new System.Drawing.Font("Arial", 11.25F);
             this.ClearToggle.ForeColor = System.Drawing.SystemColors.Window;
-            this.ClearToggle.Location = new System.Drawing.Point(40, 372);
+            this.ClearToggle.Location = new System.Drawing.Point(40, 413);
             this.ClearToggle.Name = "ClearToggle";
             this.ClearToggle.Size = new System.Drawing.Size(201, 21);
             this.ClearToggle.TabIndex = 22;
@@ -338,7 +338,7 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.Controls.Add(this.panel6);
-            this.panel5.Location = new System.Drawing.Point(40, 395);
+            this.panel5.Location = new System.Drawing.Point(40, 436);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(250, 1);
             this.panel5.TabIndex = 23;
@@ -355,7 +355,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.panel7);
-            this.panel3.Location = new System.Drawing.Point(40, 511);
+            this.panel3.Location = new System.Drawing.Point(40, 552);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(250, 1);
             this.panel3.TabIndex = 24;
@@ -373,7 +373,7 @@
             this.JoistToggle.AutoSize = true;
             this.JoistToggle.Font = new System.Drawing.Font("Arial", 11.25F);
             this.JoistToggle.ForeColor = System.Drawing.SystemColors.Window;
-            this.JoistToggle.Location = new System.Drawing.Point(41, 404);
+            this.JoistToggle.Location = new System.Drawing.Point(41, 445);
             this.JoistToggle.Name = "JoistToggle";
             this.JoistToggle.Size = new System.Drawing.Size(179, 21);
             this.JoistToggle.TabIndex = 25;
@@ -385,7 +385,7 @@
             this.BeamToggle.AutoSize = true;
             this.BeamToggle.Font = new System.Drawing.Font("Arial", 11.25F);
             this.BeamToggle.ForeColor = System.Drawing.SystemColors.Window;
-            this.BeamToggle.Location = new System.Drawing.Point(41, 430);
+            this.BeamToggle.Location = new System.Drawing.Point(41, 471);
             this.BeamToggle.Name = "BeamToggle";
             this.BeamToggle.Size = new System.Drawing.Size(188, 21);
             this.BeamToggle.TabIndex = 26;
@@ -397,7 +397,7 @@
             this.ColumnToggle.AutoSize = true;
             this.ColumnToggle.Font = new System.Drawing.Font("Arial", 11.25F);
             this.ColumnToggle.ForeColor = System.Drawing.SystemColors.Window;
-            this.ColumnToggle.Location = new System.Drawing.Point(41, 457);
+            this.ColumnToggle.Location = new System.Drawing.Point(41, 498);
             this.ColumnToggle.Name = "ColumnToggle";
             this.ColumnToggle.Size = new System.Drawing.Size(200, 21);
             this.ColumnToggle.TabIndex = 27;
@@ -409,7 +409,7 @@
             this.VBToggle.AutoSize = true;
             this.VBToggle.Font = new System.Drawing.Font("Arial", 11.25F);
             this.VBToggle.ForeColor = System.Drawing.SystemColors.Window;
-            this.VBToggle.Location = new System.Drawing.Point(41, 484);
+            this.VBToggle.Location = new System.Drawing.Point(41, 525);
             this.VBToggle.Name = "VBToggle";
             this.VBToggle.Size = new System.Drawing.Size(239, 21);
             this.VBToggle.TabIndex = 28;
@@ -421,7 +421,7 @@
             this.SelectionSetCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SelectionSetCombo.Font = new System.Drawing.Font("Arial", 11.25F);
             this.SelectionSetCombo.FormattingEnabled = true;
-            this.SelectionSetCombo.Location = new System.Drawing.Point(41, 553);
+            this.SelectionSetCombo.Location = new System.Drawing.Point(41, 591);
             this.SelectionSetCombo.Name = "SelectionSetCombo";
             this.SelectionSetCombo.Size = new System.Drawing.Size(247, 25);
             this.SelectionSetCombo.TabIndex = 29;
@@ -431,7 +431,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 11.25F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(78, 524);
+            this.label1.Location = new System.Drawing.Point(83, 563);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(158, 17);
             this.label1.TabIndex = 30;
@@ -442,7 +442,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.ClientSize = new System.Drawing.Size(331, 650);
+            this.ClientSize = new System.Drawing.Size(331, 680);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectionSetCombo);
             this.Controls.Add(this.VBToggle);
